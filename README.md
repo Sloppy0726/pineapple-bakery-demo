@@ -7,7 +7,7 @@ This is a speculative sales/demo artifact only. It is **not affiliated with Pine
 ## What was built
 
 - Mobile-first Vite + React one-page website.
-- Premium warm bakery visual direction: pineapple/golden tones, cream background, elegant placeholder photography, strong hero section.
+- Premium warm bakery visual direction: pineapple/golden tones, cream background, real public Instagram/social thumbnails for draft imagery, strong hero section.
 - Sections for:
   - Hero and CTA
   - Signature products
@@ -46,6 +46,10 @@ npm run build
 - U Food/media snippet: https://ufood.com.hk/restaurant/news/detail/20073149/香港菠蘿包推介-港式菠蘿包必試-冰火菠蘿油-酥脆菠蘿皮-爆漿芝士餡
 - Public snippet address: Shop 2, G/F, 87 Wing Lok Street, Sheung Wan, Hong Kong
 - Public snippets mentioning brioche pineapple buns, pineapple bun with butter, nitro milk tea, and “DM for catering”.
+- Draft imagery:
+  - Official public Instagram post/reel thumbnail from `@pineapplebakeryhk` for the hero/signature bun photo.
+  - Public Instagram reel thumbnails for product/context cards.
+  - These are saved locally under `public/social/` for stable demo rendering, with visible draft-use labels.
 
 ## Uncertain / needs verification
 
@@ -63,7 +67,7 @@ These details are intentionally labeled cautiously in the website:
 - No fake phone number or WhatsApp included.
 - No fake prices included.
 - No fake ratings or reviews included.
-- No copyrighted product photos reused; site uses labeled placeholder photography blocks.
+- Public Instagram/social thumbnails are used only for draft visualization and are visibly labeled; image usage rights should be confirmed or replaced with approved assets before any real launch.
 - Instagram is used as the public CTA link.
 - Footer disclaimer is visible: “Demo concept only — not affiliated with Pineapple Bakery.”
 

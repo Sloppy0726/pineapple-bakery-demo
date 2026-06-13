@@ -7,13 +7,15 @@ const instagramUrl = 'https://www.instagram.com/pineapplebakeryhk/';
 const openRiceUrl = 'https://www.openrice.com/en/hongkong/r-pineapple-bakery-sheung-wan-hong-kong-style-bakery-r998564';
 const uFoodUrl = 'https://ufood.com.hk/restaurant/news/detail/20073149/香港菠蘿包推介-港式菠蘿包必試-冰火菠蘿油-酥脆菠蘿皮-爆漿芝士餡';
 const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Shop%202%2C%20G%2FF%2C%2087%20Wing%20Lok%20Street%2C%20Sheung%20Wan%2C%20Hong%20Kong';
+const photoCredit = 'Public Instagram photo/reel thumbnail — draft use only';
+const assetBase = import.meta.env.BASE_URL;
 
 function App() {
   const products = [
-    { icon: <Croissant />, title: 'Brioche Pineapple Bun', badge: 'Signature', text: 'A modern Hong Kong pineapple bun concept with a soft brioche-style crumb and golden crackly top. Price to be confirmed.' },
-    { icon: <Sparkles />, title: 'Pineapple Bun with Butter', badge: 'Classic indulgence', text: 'Warm bun, cold butter, crisp sweet crust — a premium take on the beloved cha chaan teng favourite. Price to be confirmed.' },
-    { icon: <Coffee />, title: 'Nitro Milk Tea', badge: 'Drink pairing', text: 'Public snippets mention nitro milk tea — positioned here as the cool, creamy pairing for fresh bakes. Details to verify.' },
-    { icon: <PartyPopper />, title: 'Catering / Party Orders', badge: 'DM enquiry', text: 'For office treats, meetings, and small parties. Public Instagram snippet mentions DM for catering; no phone/WhatsApp invented.' }
+    { icon: <Croissant />, title: 'Brioche Pineapple Bun', badge: 'Signature', image: `${assetBase}social/official-brioche-pineapple-buns.jpg`, text: 'A modern Hong Kong pineapple bun concept with a soft brioche-style crumb and golden crackly top. Price to be confirmed.' },
+    { icon: <Sparkles />, title: 'Pineapple Bun with Butter', badge: 'Classic indulgence', image: `${assetBase}social/food-reel-pineapple-bun.jpg`, text: 'Warm bun, cold butter, crisp sweet crust — a premium take on the beloved cha chaan teng favourite. Price to be confirmed.' },
+    { icon: <Coffee />, title: 'Nitro Milk Tea', badge: 'Drink pairing', image: `${assetBase}social/social-reel-milk-tea.jpg`, text: 'Public snippets mention nitro milk tea — positioned here as the cool, creamy pairing for fresh bakes. Details to verify.' },
+    { icon: <PartyPopper />, title: 'Catering / Party Orders', badge: 'DM enquiry', image: `${assetBase}social/social-reel-bun-closeup.jpg`, text: 'For office treats, meetings, and small parties. Public Instagram snippet mentions DM for catering; no phone/WhatsApp invented.' }
   ];
 
   return (
@@ -44,10 +46,11 @@ function App() {
               <span>No fake prices/contact info</span>
             </div>
           </div>
-          <div className="hero-card" aria-label="Food photography placeholder">
-            <div className="photo-placeholder">
-              <span>Signature brioche pineapple bun photo here</span>
-            </div>
+          <div className="hero-card" aria-label="Public Instagram photo of Pineapple Bakery buns">
+            <figure className="hero-photo">
+              <img src={`${assetBase}social/official-brioche-pineapple-buns.jpg`} alt="Fresh golden pineapple buns on a bakery tray" />
+              <figcaption>{photoCredit}</figcaption>
+            </figure>
             <div className="hero-note">
               <strong>Baked to sell out</strong>
               <p>Check Instagram stories/posts for the latest batch and walk-in updates before visiting.</p>
@@ -70,9 +73,13 @@ function App() {
         <div className="product-grid">
           {products.map((item) => (
             <article className="product-card" key={item.title}>
-              <div className="product-top"><div className="icon-pill">{item.icon}</div><span>{item.badge}</span></div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              <img className="product-photo" src={item.image} alt={`${item.title} photo from public Instagram source`} />
+              <div className="product-body">
+                <div className="product-top"><div className="icon-pill">{item.icon}</div><span>{item.badge}</span></div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <small>{photoCredit}</small>
+              </div>
             </article>
           ))}
         </div>
@@ -139,7 +146,7 @@ function App() {
       <footer>
         <div><strong>Pineapple Bakery 鳳梨餅家</strong><p>Shop 2, G/F, 87 Wing Lok Street, Sheung Wan, Hong Kong</p></div>
         <div className="footer-links"><a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a><a href={mapsUrl} target="_blank" rel="noreferrer">Map</a></div>
-        <p className="disclaimer">Demo concept only — not affiliated with Pineapple Bakery. Built from public snippets and placeholders; uncertain details must be verified before real outreach or launch.</p>
+        <p className="disclaimer">Demo concept only — not affiliated with Pineapple Bakery. Built from public snippets and public Instagram/social thumbnails for draft visualization; uncertain details and image usage rights must be verified before real outreach or launch.</p>
       </footer>
     </main>
   );
