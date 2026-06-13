@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Send, MapPin, Coffee, Croissant, Sparkles, ExternalLink, PartyPopper, ShieldCheck } from 'lucide-react';
+import { Send, MapPin, Coffee, Croissant, Sparkles, ExternalLink, PartyPopper, ShieldCheck, Camera, MessageCircle } from 'lucide-react';
 import './styles.css';
 
 const instagramUrl = 'https://www.instagram.com/pineapplebakeryhk/';
@@ -11,6 +11,33 @@ const photoCredit = 'Public Instagram photo/reel thumbnail — draft use only';
 const assetBase = import.meta.env.BASE_URL;
 
 function App() {
+  useEffect(() => {
+    const targets = document.querySelectorAll('.section > .section-kicker, .section > h2, .section > p, .section-heading, .product-card, .split > div, .schedule-card, .catering-card, .location > div, .map-card, .proof-grid a, details, footer');
+
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    targets.forEach((el, index) => {
+      el.classList.add('reveal-on-scroll');
+      el.style.setProperty('--reveal-delay', `${Math.min(index % 4, 3) * 70}ms`);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else if (entry.boundingClientRect.top > window.innerHeight * 0.9) {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const products = [
     { icon: <Croissant />, title: 'Brioche Pineapple Bun', badge: 'Signature', image: `${assetBase}social/official-brioche-pineapple-buns.jpg`, text: 'A modern Hong Kong pineapple bun concept with a soft brioche-style crumb and golden crackly top. Price to be confirmed.' },
     { icon: <Sparkles />, title: 'Pineapple Bun with Butter', badge: 'Classic indulgence', image: `${assetBase}social/food-reel-pineapple-bun.jpg`, text: 'Warm bun, cold butter, crisp sweet crust — a premium take on the beloved cha chaan teng favourite. Price to be confirmed.' },
@@ -20,6 +47,27 @@ function App() {
 
   return (
     <main>
+      <aside className="social-float" aria-label="Quick social links">
+        <button className="social-trigger" aria-haspopup="true" aria-expanded="false">
+          <Camera size={20}/>
+          <span>Social</span>
+        </button>
+        <div className="social-menu" role="menu">
+          <a role="menuitem" href={instagramUrl} target="_blank" rel="noreferrer">
+            <Camera size={17}/>
+            <span><strong>Instagram</strong><small>Latest bakes / DM catering</small></span>
+          </a>
+          <a role="menuitem" href={openRiceUrl} target="_blank" rel="noreferrer">
+            <MessageCircle size={17}/>
+            <span><strong>OpenRice</strong><small>Public directory listing</small></span>
+          </a>
+          <a role="menuitem" href={mapsUrl} target="_blank" rel="noreferrer">
+            <MapPin size={17}/>
+            <span><strong>Map</strong><small>Sheung Wan address search</small></span>
+          </a>
+        </div>
+      </aside>
+
       <section className="hero" id="top">
         <nav className="nav" aria-label="Primary navigation">
           <a href="#top" className="brand"><span>鳳梨</span> Pineapple Bakery</a>
@@ -30,6 +78,12 @@ function App() {
             <a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a>
           </div>
         </nav>
+
+        <div className="hero-bg-gallery" aria-hidden="true">
+          <img className="tile tile-one" src={`${assetBase}social/food-reel-pineapple-bun.jpg`} alt="" />
+          <img className="tile tile-two" src={`${assetBase}social/social-reel-milk-tea.jpg`} alt="" />
+          <img className="tile tile-three" src={`${assetBase}social/social-reel-bun-closeup.jpg`} alt="" />
+        </div>
 
         <div className="hero-grid">
           <div className="hero-copy">
