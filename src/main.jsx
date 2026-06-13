@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Send, MapPin, Coffee, Croissant, Sparkles, ExternalLink, PartyPopper, ShieldCheck, Camera, MessageCircle } from 'lucide-react';
+import { Send, MapPin, Coffee, Croissant, Sparkles, ExternalLink, PartyPopper, ShieldCheck, MessageCircle } from 'lucide-react';
 import './styles.css';
 
 const instagramUrl = 'https://www.instagram.com/pineapplebakeryhk/';
@@ -10,6 +10,16 @@ const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Shop%202%2C%20G
 const photoCredit = 'Public Instagram photo/reel thumbnail — draft use only';
 const assetBase = import.meta.env.BASE_URL;
 const fontThemeKeys = ['fraunces', 'playfair', 'dm-serif', 'young-serif', 'instrument'];
+
+function InstagramIcon({ size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" />
+    </svg>
+  );
+}
 
 function App() {
   useEffect(() => {
@@ -53,12 +63,12 @@ function App() {
     <main>
       <aside className="social-float" aria-label="Quick social links">
         <button className="social-trigger" aria-haspopup="true" aria-expanded="false">
-          <Camera size={20}/>
+          <InstagramIcon size={20}/>
           <span>Social</span>
         </button>
         <div className="social-menu" role="menu">
           <a role="menuitem" href={instagramUrl} target="_blank" rel="noreferrer">
-            <Camera size={17}/>
+            <InstagramIcon size={17}/>
             <span><strong>Instagram</strong><small>Latest bakes / DM catering</small></span>
           </a>
           <a role="menuitem" href={openRiceUrl} target="_blank" rel="noreferrer">
