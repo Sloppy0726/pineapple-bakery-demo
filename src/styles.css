@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@500;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Instrument+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+HK:wght@500;700;900&family=Nunito+Sans:wght@400;600;700;800;900&family=Playfair+Display:wght@600;700;800;900&family=Young+Serif&display=swap');
 
 :root {
   --ink: #2c170b;
@@ -11,11 +11,20 @@
   --green: #284a32;
   --line: rgba(88, 48, 17, 0.16);
   --shadow: 0 24px 80px rgba(96, 49, 12, 0.18);
+  --font-display: 'DM Serif Display', 'Noto Serif HK', Georgia, serif;
+  --font-body: 'DM Sans', Inter, system-ui, sans-serif;
+  --display-tracking: -0.025em;
 }
+
+html[data-font-theme='fraunces'] { --font-display: 'Fraunces', 'Noto Serif HK', Georgia, serif; --font-body: Inter, system-ui, sans-serif; --display-tracking: -0.04em; }
+html[data-font-theme='playfair'] { --font-display: 'Playfair Display', 'Noto Serif HK', Georgia, serif; --font-body: Manrope, Inter, system-ui, sans-serif; --display-tracking: -0.035em; }
+html[data-font-theme='dm-serif'] { --font-display: 'DM Serif Display', 'Noto Serif HK', Georgia, serif; --font-body: 'DM Sans', Inter, system-ui, sans-serif; --display-tracking: -0.025em; }
+html[data-font-theme='young-serif'] { --font-display: 'Young Serif', 'Noto Serif HK', Georgia, serif; --font-body: 'Nunito Sans', Inter, system-ui, sans-serif; --display-tracking: -0.03em; }
+html[data-font-theme='instrument'] { --font-display: 'Instrument Serif', 'Noto Serif HK', Georgia, serif; --font-body: 'Instrument Sans', Inter, system-ui, sans-serif; --display-tracking: -0.02em; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--ink); background:
+body { margin: 0; font-family: var(--font-body); color: var(--ink); background:
   radial-gradient(circle at 18% 2%, rgba(255, 224, 139, .72) 0, transparent 25rem),
   radial-gradient(circle at 86% 14%, rgba(207, 125, 18, .16) 0, transparent 22rem),
   linear-gradient(135deg, rgba(207,125,18,.045) 25%, transparent 25%) 0 0 / 42px 42px,
@@ -50,7 +59,7 @@ main { overflow: hidden; }
   radial-gradient(circle at 84% 22%, rgba(255,248,232,.72), transparent 17rem),
   repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0 2px, transparent 2px 30px); mix-blend-mode: soft-light; }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1180px; margin: 0 auto 70px; }
-.brand { text-decoration: none; font-weight: 900; letter-spacing: -.03em; font-size: clamp(1.1rem, 2vw, 1.35rem); }
+.brand { text-decoration: none; font-family: var(--font-display); font-weight: 900; letter-spacing: var(--display-tracking); font-size: clamp(1.1rem, 2vw, 1.35rem); }
 .brand span { font-family: 'Noto Serif HK', serif; color: var(--deep-gold); margin-right: 6px; }
 .nav-links { display: flex; gap: 18px; font-size: .92rem; font-weight: 700; color: var(--muted); }
 .nav-links a { text-decoration: none; }
@@ -65,7 +74,7 @@ main { overflow: hidden; }
 .hero-copy { max-width: 780px; position: relative; }
 .hero-copy::before { content: ''; position: absolute; inset: -28px -34px -20px -30px; z-index: -1; border-radius: 42px; background: linear-gradient(105deg, rgba(255,253,248,.76), rgba(255,248,232,.38) 56%, rgba(255,248,232,0)); filter: blur(.2px); }
 .eyebrow, .section-kicker { color: var(--deep-gold); font-weight: 900; text-transform: uppercase; letter-spacing: .16em; font-size: .76rem; }
-h1, h2, h3 { margin: 0; letter-spacing: -.055em; line-height: .96; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: var(--display-tracking); line-height: .96; }
 h1 { font-size: clamp(3rem, 5.2vw, 4.95rem); max-width: 700px; text-shadow: 0 2px 0 rgba(255,248,232,.9), 0 10px 34px rgba(255,248,232,.92), 0 24px 70px rgba(44,23,11,.18); }
 h2 { font-size: clamp(1.85rem, 3.1vw, 2.85rem); }
 h3 { font-size: 1.32rem; }

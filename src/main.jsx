@@ -9,9 +9,13 @@ const uFoodUrl = 'https://ufood.com.hk/restaurant/news/detail/20073149/香港菠
 const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Shop%202%2C%20G%2FF%2C%2087%20Wing%20Lok%20Street%2C%20Sheung%20Wan%2C%20Hong%20Kong';
 const photoCredit = 'Public Instagram photo/reel thumbnail — draft use only';
 const assetBase = import.meta.env.BASE_URL;
+const fontThemeKeys = ['fraunces', 'playfair', 'dm-serif', 'young-serif', 'instrument'];
 
 function App() {
   useEffect(() => {
+    const requestedFontTheme = new URLSearchParams(window.location.search).get('font');
+    document.documentElement.dataset.fontTheme = fontThemeKeys.includes(requestedFontTheme) ? requestedFontTheme : 'young-serif';
+
     const targets = document.querySelectorAll('.section > .section-kicker, .section > h2, .section > p, .section-heading, .product-card, .split > div, .schedule-card, .catering-card, .location > div, .map-card, .proof-grid a, details, footer');
 
     if (!('IntersectionObserver' in window)) {
