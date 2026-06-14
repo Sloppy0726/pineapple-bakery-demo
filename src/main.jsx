@@ -277,12 +277,12 @@ function App() {
     <main>
       <aside className="social-float" aria-label="Quick social links">
         <button className="social-trigger" aria-haspopup="true" aria-expanded="false">
-          <InstagramIcon size={20}/>
+          <span className="social-avatar" aria-hidden="true"><img src={`${assetBase}social/pineapple-bakery-instagram-icon.jpg`} alt="" /></span>
           <span>{t.socialLabel}</span>
         </button>
         <div className="social-menu" role="menu">
           <a role="menuitem" href={instagramUrl} target="_blank" rel="noreferrer">
-            <InstagramIcon size={17}/>
+            <span className="social-menu__avatar" aria-hidden="true"><img src={`${assetBase}social/pineapple-bakery-instagram-icon.jpg`} alt="" /></span>
             <span><strong>Instagram</strong><small>{t.socialMenu.instagram}</small></span>
           </a>
           <a role="menuitem" href={openRiceUrl} target="_blank" rel="noreferrer">

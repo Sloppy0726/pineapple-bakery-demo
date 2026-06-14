@@ -34,25 +34,27 @@ a { color: inherit; }
 main { overflow: hidden; }
 
 .social-float { position: fixed; right: clamp(10px, 2vw, 20px); bottom: max(8px, env(safe-area-inset-bottom)); z-index: 40; }
-.social-trigger { border: 0; cursor: pointer; min-width: 104px; height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; color: #fffaf0; background: linear-gradient(135deg, #2c170b, #cf7d12); box-shadow: 0 12px 34px rgba(44,23,11,.24); font-weight: 900; letter-spacing: -.01em; opacity: .92; transition: opacity .18s ease, box-shadow .18s ease, transform .18s ease; }
+.social-trigger { border: 0; cursor: pointer; min-width: 104px; height: 46px; padding: 4px 14px 4px 6px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; color: #fffaf0; background: linear-gradient(135deg, #2c170b, #cf7d12); box-shadow: 0 12px 34px rgba(44,23,11,.24); font-weight: 900; letter-spacing: -.01em; opacity: .94; transition: opacity .18s ease, box-shadow .18s ease, transform .18s ease; }
+.social-avatar, .social-menu__avatar { width: 34px; height: 34px; border-radius: 999px; display: inline-grid; place-items: center; flex: 0 0 34px; overflow: hidden; background: #fff8e8; border: 2px solid rgba(255,255,255,.84); box-shadow: 0 6px 14px rgba(44,23,11,.18); }
+.social-avatar img, .social-menu__avatar img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .social-menu { position: absolute; right: 0; bottom: calc(100% + 8px); width: min(310px, calc(100vw - 32px)); padding: 10px; border-radius: 26px; background: rgba(255,253,248,.9); border: 1px solid rgba(88,48,17,.14); box-shadow: 0 24px 80px rgba(44,23,11,.22); backdrop-filter: blur(18px); opacity: 0; transform: translateY(12px) scale(.96); pointer-events: none; transform-origin: bottom right; transition: opacity .22s ease, transform .22s cubic-bezier(.2,.8,.2,1); }
 .social-float:hover .social-menu, .social-float:focus-within .social-menu { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 .social-float:hover .social-trigger, .social-float:focus-within .social-trigger { opacity: 1; transform: translateY(-1px); box-shadow: 0 16px 44px rgba(207,125,18,.30); }
-.social-menu a { display: grid; grid-template-columns: 38px 1fr; gap: 10px; align-items: center; padding: 10px; border-radius: 18px; text-decoration: none; color: var(--ink); }
+.social-menu a { display: grid; grid-template-columns: 42px 1fr; gap: 10px; align-items: center; padding: 10px; border-radius: 18px; text-decoration: none; color: var(--ink); }
 .social-menu a:hover, .social-menu a:focus { background: rgba(242,182,50,.15); outline: none; }
 .social-menu a > svg { color: var(--deep-gold); }
 .social-menu span { display: grid; gap: 2px; }
 .social-menu strong { font-size: .95rem; }
 .social-menu small { color: var(--muted); font-weight: 700; line-height: 1.25; }
 
-.hero { min-height: 92vh; padding: 24px clamp(18px, 5vw, 68px) 72px; position: relative; isolation: isolate; background:
-  linear-gradient(180deg, rgba(44,23,11,.14), rgba(44,23,11,.02) 38%, transparent 100%),
-  radial-gradient(circle at 24% 30%, rgba(255,255,255,.58) 0, transparent 22rem),
-  radial-gradient(circle at 72% 22%, rgba(242,182,50,.28) 0, transparent 24rem); }
+.hero { min-height: 88vh; padding: 24px clamp(18px, 5vw, 68px) 72px; position: relative; isolation: isolate; background:
+  radial-gradient(circle at 18% 20%, rgba(255,255,255,.72) 0, transparent 20rem),
+  radial-gradient(circle at 74% 18%, rgba(242,182,50,.34) 0, transparent 24rem),
+  linear-gradient(180deg, rgba(207,125,18,.10), rgba(255,248,232,.02) 45%, transparent 100%); }
 .hero::before { content: ''; position: absolute; inset: 82px 0 auto; height: min(74vh, 690px); z-index: -3; background:
   linear-gradient(90deg, rgba(255,248,232,.88), rgba(255,248,232,.52) 34%, rgba(255,248,232,.14) 60%, rgba(44,23,11,.32)),
   url('/pineapple-bakery-demo/social/official-brioche-pineapple-buns.jpg') center / cover;
-  opacity: .26; filter: saturate(1.05) contrast(1.02); }
+  opacity: .34; filter: saturate(1.12) contrast(1.03) brightness(1.04); }
 .hero::after { content: ''; position: absolute; inset: 82px 0 auto; height: min(74vh, 690px); z-index: -2; background:
   radial-gradient(circle at 18% 50%, rgba(255,253,248,.82), transparent 22rem),
   radial-gradient(circle at 12% 72%, rgba(242,182,50,.38), transparent 16rem),
@@ -74,7 +76,7 @@ main { overflow: hidden; }
 
 .hero-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(310px, .76fr); gap: clamp(28px, 6vw, 74px); align-items: center; position: relative; z-index: 2; }
 .hero-bg-gallery { pointer-events: none; position: absolute; inset: 120px max(18px, 5vw) auto; max-width: 1180px; height: min(64vh, 600px); margin: 0 auto; left: 50%; transform: translateX(-50%); width: calc(100% - clamp(36px, 10vw, 136px)); z-index: -1; }
-.tile { position: absolute; width: clamp(92px, 16vw, 210px); height: clamp(128px, 22vw, 290px); object-fit: cover; border-radius: 28px; box-shadow: 0 24px 80px rgba(44,23,11,.20); opacity: .46; filter: saturate(1.02); }
+.tile { position: absolute; width: clamp(92px, 16vw, 210px); height: clamp(128px, 22vw, 290px); object-fit: cover; border-radius: 28px; box-shadow: 0 24px 80px rgba(44,23,11,.20); opacity: .54; filter: saturate(1.08) brightness(1.03); }
 .tile-one { left: 0; top: 28%; transform: rotate(-7deg); }
 .tile-two { right: 2%; top: 5%; transform: rotate(6deg); }
 .tile-three { right: 16%; bottom: 0; transform: rotate(-4deg); opacity: .38; }
@@ -182,8 +184,8 @@ footer p { color: var(--muted); margin: 6px 0; }
   .nav-actions { margin-left: auto; }
   .language-switch { background: rgba(255,253,248,.88); }
   .social-float { right: 10px; bottom: max(6px, env(safe-area-inset-bottom)); }
-  .social-trigger { min-width: 46px; width: 46px; height: 46px; padding: 0; opacity: .88; }
-  .social-trigger span { display: none; }
+  .social-trigger { min-width: 46px; width: 46px; height: 46px; padding: 4px; opacity: .9; }
+  .social-trigger > span:not(.social-avatar) { display: none; }
   .social-menu { width: min(292px, calc(100vw - 28px)); }
   .nav-links { display: none; }
   .hero-grid, .split, .location { grid-template-columns: 1fr; }
