@@ -295,7 +295,7 @@ export default function V2App() {
           <div className="v2-award-badge"><span>foodie forks</span><strong>{t.award.label}</strong><small>Pineapple Bakery</small></div>
         </div>
         <article className="v2-copy-card">
-          <p>{t.award.title}</p>
+          <p className="v2-award-title">{t.award.title}</p>
           <span>{t.award.body}</span>
           <a href={openRiceUrl} target="_blank" rel="noreferrer">{t.award.cta}<ArrowRight size={15} /></a>
         </article>
@@ -305,7 +305,7 @@ export default function V2App() {
           <p>{t.story.body}</p>
           <a href={instagramUrl} target="_blank" rel="noreferrer">{t.story.cta}<ArrowRight size={15} /></a>
         </article>
-        <img className="v2-shop-photo" src={image('social-reel-bun-closeup.jpg')} alt="Public social bakery image used as shop story placeholder" />
+        <img className="v2-shop-photo" src={image('official-brioche-pineapple-buns.jpg')} alt="Public bakery image used as shop story placeholder" />
       </section>
 
       <section className="v2-gallery v2-reveal" id="v2-faq">

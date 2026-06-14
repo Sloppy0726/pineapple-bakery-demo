@@ -373,7 +373,7 @@ body[data-site-version='v2'] {
 
 .v2-story-grid {
   display: grid;
-  grid-template-columns: 1.05fr .62fr .92fr 1.05fr;
+  grid-template-columns: 1fr .86fr 1fr 1fr;
   min-height: 360px;
   border-bottom: 1px solid var(--line);
 }
@@ -416,6 +416,8 @@ body[data-site-version='v2'] {
   font: 900 clamp(1.45rem, 2.4vw, 2.25rem) / 1.04 'Fraunces', 'Noto Sans HK', serif;
   letter-spacing: -.025em;
 }
+.v2-copy-card .v2-award-title { white-space: nowrap; }
+.v2-copy-card h2 { word-break: keep-all; }
 .v2-copy-card > span,
 .v2-copy-card > p:not(:first-child) { margin: 0; color: #5d4a38; font-weight: 700; line-height: 1.55; }
 .v2-copy-card a { margin-top: 16px; align-self: flex-start; display: inline-flex; gap: 9px; align-items: center; min-height: 48px; padding: 0 22px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: .76rem; }
@@ -470,6 +472,7 @@ body[data-site-version='v2'] {
   .v2-split { margin-inline: clamp(16px, 4vw, 32px); }
   .v2-preorder__steps { grid-template-columns: 1fr; }
   .v2-story-grid { grid-template-columns: repeat(2, 1fr); }
+  .v2-copy-card .v2-award-title { white-space: normal; }
   .v2-gallery__grid { grid-template-columns: repeat(3, 1fr); }
 }
 
