@@ -9,10 +9,24 @@ const uFoodUrl = 'https://ufood.com.hk/restaurant/news/detail/20073149/香港菠
 const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Shop%202%2C%20G%2FF%2C%2087%20Wing%20Lok%20Street%2C%20Sheung%20Wan%2C%20Hong%20Kong';
 const assetBase = import.meta.env.BASE_URL;
 const fontThemeKeys = ['fraunces', 'playfair', 'dm-serif', 'young-serif', 'instrument'];
+const languageKeys = ['en', 'zh'];
+const languageStorageKey = 'pineapple-bakery-language';
 const languages = [
   { code: 'en', label: 'EN', name: 'English' },
   { code: 'zh', label: '繁', name: '繁體中文' }
 ];
+
+function getInitialLanguage() {
+  const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
+  if (languageKeys.includes(requestedLanguage)) return requestedLanguage;
+
+  const savedLanguage = window.localStorage.getItem(languageStorageKey);
+  if (languageKeys.includes(savedLanguage)) return savedLanguage;
+
+  const browserLanguages = [navigator.language, ...(navigator.languages || [])].filter(Boolean);
+  const prefersChinese = browserLanguages.some((lang) => lang.toLowerCase().startsWith('zh'));
+  return prefersChinese ? 'zh' : 'en';
+}
 
 const copy = {
   en: {
@@ -194,10 +208,7 @@ function InstagramIcon({ size = 20 }) {
 }
 
 function App() {
-  const [language, setLanguage] = useState(() => {
-    const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
-    return requestedLanguage === 'zh' ? 'zh' : 'en';
-  });
+  const [language, setLanguage] = useState(getInitialLanguage);
 
   const t = copy[language];
 
@@ -208,6 +219,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.lang = language === 'zh' ? 'zh-Hant-HK' : 'en';
+    window.localStorage.setItem(languageStorageKey, language);
   }, [language]);
 
   useEffect(() => {
