@@ -307,7 +307,7 @@ export default function V2App() {
           <p>{t.story.body}</p>
           <a href={instagramUrl} target="_blank" rel="noreferrer">{t.story.cta}<ArrowRight size={15} /></a>
         </article>
-        <img className="v2-shop-photo" src={image('official-brioche-pineapple-buns.jpg')} alt="Public bakery image used as shop story placeholder" />
+        <img className="v2-shop-photo" src={image('reference-story-street.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
       </section>
 
       <section className="v2-gallery v2-reveal" id="v2-faq">

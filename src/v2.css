@@ -293,13 +293,8 @@ body[data-site-version='v2'] {
 
 .v2-split {
   display: grid;
-  grid-template-columns: 1fr;
-  max-width: 1180px;
-  margin: clamp(42px, 6vw, 74px) auto;
-  border: 1px solid var(--line);
-  border-radius: 34px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
+  grid-template-columns: minmax(0, 1.9fr) minmax(320px, .95fr);
+  border-bottom: 1px solid var(--line);
 }
 .v2-menu-panel { padding: clamp(34px, 5vw, 62px) clamp(24px, 6vw, 80px); background: #fffaf1; }
 .v2-section-title h2,
@@ -323,7 +318,7 @@ body[data-site-version='v2'] {
 .v2-product-strip {
   display: grid;
   grid-template-columns: repeat(5, minmax(120px, 1fr));
-  gap: 14px;
+  gap: 10px;
   margin-bottom: 26px;
 }
 .v2-product img {
@@ -344,9 +339,8 @@ body[data-site-version='v2'] {
     repeating-linear-gradient(-12deg, rgba(42,29,20,.035) 0 1px, transparent 1px 8px),
     #f2c967;
   overflow: hidden;
-  border-top: 1px solid rgba(42,29,20,.14);
 }
-.v2-preorder__steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin: 16px 0 34px; }
+.v2-preorder__steps { display: grid; gap: 26px; margin: 16px 0 34px; }
 .v2-step { display: grid; grid-template-columns: 58px 1fr; gap: 2px 16px; align-items: center; }
 .v2-step span {
   grid-row: span 2;
@@ -373,23 +367,21 @@ body[data-site-version='v2'] {
 
 .v2-story-grid {
   display: grid;
-  grid-template-columns: 1fr 1.25fr 1fr 1fr;
-  min-height: 360px;
+  grid-template-columns: 1fr .72fr 1.12fr 1fr;
+  min-height: 320px;
   border-bottom: 1px solid var(--line);
 }
 .v2-award-card {
   display: grid;
   place-items: center;
-  min-height: 360px;
-  background:
-    linear-gradient(135deg, rgba(42,29,20,.18), transparent),
-    url('/pineapple-bakery-demo/social/social-reel-bun-closeup.jpg') center / cover;
+  min-height: 320px;
+  background: url('/pineapple-bakery-demo/social/reference-award-card.jpg') center / cover;
 }
 .v2-award-badge {
+  display: none;
   width: min(78%, 260px);
   aspect-ratio: 1;
   border-radius: 50%;
-  display: grid;
   place-items: center;
   text-align: center;
   padding: 36px;
@@ -402,7 +394,7 @@ body[data-site-version='v2'] {
 .v2-award-badge strong { font-size: clamp(1.4rem, 2vw, 2.1rem); line-height: 1.02; }
 .v2-award-badge small { font-weight: 900; letter-spacing: .08em; }
 .v2-copy-card {
-  padding: clamp(30px, 4vw, 54px);
+  padding: clamp(24px, 3vw, 42px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -413,19 +405,19 @@ body[data-site-version='v2'] {
 .v2-copy-card p:first-child,
 .v2-copy-card h2 {
   margin: 0;
-  font: 900 clamp(1.45rem, 2.4vw, 2.25rem) / 1.04 'Fraunces', 'Noto Sans HK', serif;
+  font: 900 clamp(1.35rem, 2vw, 1.9rem) / 1.04 'Fraunces', 'Noto Sans HK', serif;
   letter-spacing: -.025em;
 }
 .v2-copy-card .v2-award-title { white-space: nowrap; }
 .v2-copy-card p.v2-award-title--en { white-space: normal; font-size: clamp(1.35rem, 2vw, 1.65rem); line-height: 1.08; }
 .v2-copy-card h2 { word-break: keep-all; }
 .v2-copy-card > span,
-.v2-copy-card > p:not(:first-child) { margin: 0; color: #5d4a38; font-weight: 700; line-height: 1.55; }
+.v2-copy-card > p:not(:first-child) { margin: 0; color: #5d4a38; font-weight: 700; font-size: .9rem; line-height: 1.45; }
 .v2-copy-card a { margin-top: 16px; align-self: flex-start; display: inline-flex; gap: 9px; align-items: center; min-height: 48px; padding: 0 22px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: .76rem; }
 .v2-copy-card--story { background: #fffaf1; }
 .v2-copy-card em { font-style: normal; font-weight: 900; text-transform: uppercase; letter-spacing: .06em; }
 .v2-copy-card em::after { content: ''; display: block; width: 54px; height: 3px; margin-top: 9px; background: var(--gold); }
-.v2-shop-photo { width: 100%; height: 100%; min-height: 360px; object-fit: cover; filter: saturate(.95) contrast(1.02); }
+.v2-shop-photo { width: 100%; height: 100%; min-height: 320px; object-fit: cover; filter: saturate(.95) contrast(1.02); }
 
 .v2-gallery { padding: clamp(34px, 5vw, 58px) clamp(24px, 5vw, 70px); background: #fffaf1; border-bottom: 1px solid var(--line); }
 .v2-gallery__head { display: flex; justify-content: space-between; align-items: center; gap: 18px; margin-bottom: 22px; }
