@@ -83,6 +83,8 @@ const copy = {
       copyButton: 'Copy catering DM text',
       copied: 'Copied — paste into Instagram DM',
       copyError: 'Copy failed — select the text below',
+      productCopyButton: 'Copy DM enquiry',
+      productCopied: 'DM text copied',
       openInstagram: 'Open Instagram profile',
       previewLabel: 'Suggested DM:',
       dmDraft: 'Hi Pineapple Bakery, I’d like to ask about catering / group orders. Could you please share the available options, minimum order, lead time, and pickup details? Thank you!'
@@ -181,6 +183,8 @@ const copy = {
       copyButton: '複製到會 DM 文字',
       copied: '已複製 — 可貼到 Instagram DM',
       copyError: '複製失敗 — 請選取下方文字',
+      productCopyButton: '複製 DM 查詢',
+      productCopied: 'DM 文字已複製',
       openInstagram: '開啟 Instagram profile',
       previewLabel: '建議 DM：',
       dmDraft: '你好 Pineapple Bakery，我想查詢到會／團體訂購。請問有咩選擇、最低訂購量、需要幾多日前預訂，以及取貨安排？謝謝！'
@@ -315,7 +319,7 @@ function App() {
     { icon: <Croissant />, image: `${assetBase}social/official-brioche-pineapple-buns.jpg` },
     { icon: <Sparkles />, image: `${assetBase}social/food-reel-pineapple-bun.jpg` },
     { icon: <Coffee />, image: `${assetBase}social/social-reel-milk-tea.jpg` },
-    { icon: <PartyPopper />, image: `${assetBase}social/social-reel-bun-closeup.jpg` }
+    { icon: <PartyPopper />, image: `${assetBase}social/social-reel-bun-closeup.jpg`, dmAction: true }
   ], []);
 
   const products = t.products.map((item, index) => ({ ...item, ...productMeta[index] }));
@@ -419,7 +423,16 @@ function App() {
             <article className="product-card" key={item.title}>
               <img className="product-photo" src={item.image} alt={`${item.title} photo from public Instagram source`} />
               <div className="product-body">
-                <div className="product-top"><div className="icon-pill">{item.icon}</div><span>{item.badge}</span></div>
+                <div className="product-top">
+                  <div className="icon-pill">{item.icon}</div>
+                  {item.dmAction ? (
+                    <button className="badge-action" type="button" onClick={handleCopyCateringDm} aria-label={`${t.catering.productCopyButton}: ${t.catering.dmDraft}`}>
+                      <Send size={14}/> {copyStatus === 'copied' ? t.catering.productCopied : t.catering.productCopyButton}
+                    </button>
+                  ) : (
+                    <span>{item.badge}</span>
+                  )}
+                </div>
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
                 <small>{t.photoCredit}</small>
