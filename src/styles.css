@@ -148,6 +148,12 @@ details { padding: 20px 24px; margin: 12px 0; }
 summary { cursor: pointer; font-weight: 900; font-size: 1.08rem; }
 details p { color: var(--muted); line-height: 1.65; }
 
+.legal-placeholders { max-width: 1060px; }
+.legal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 26px; }
+.legal-card { background: rgba(255,253,248,.84); border: 1px dashed rgba(207,125,18,.45); border-radius: 28px; padding: 24px; box-shadow: 0 14px 42px rgba(105,58,13,.08); }
+.legal-label { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; margin-bottom: 18px; border-radius: 999px; background: #fff3d3; color: var(--deep-gold); font-weight: 900; }
+.legal-card p { color: var(--muted); line-height: 1.7; }
+
 footer { max-width: 1180px; margin: 30px auto; padding: 28px clamp(18px, 5vw, 34px) 54px; display: grid; grid-template-columns: 1fr auto; gap: 22px; border-top: 1px solid var(--line); }
 footer p { color: var(--muted); margin: 6px 0; }
 .footer-links { display: flex; gap: 14px; font-weight: 900; }
@@ -177,7 +183,7 @@ footer p { color: var(--muted); margin: 6px 0; }
   .hero-bg-gallery { opacity: .38; height: 52vh; }
   .tile-three { display: none; }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
-  .proof-grid { grid-template-columns: 1fr; }
+  .proof-grid, .legal-grid { grid-template-columns: 1fr; }
   .hero-card { transform: none; }
   .hero-photo { min-height: 340px; }
   .hero-photo img { height: 340px; }

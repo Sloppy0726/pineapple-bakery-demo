@@ -110,6 +110,16 @@ const copy = {
         ['Where are you located?', 'Public directory snippets show Shop 2, G/F, 87 Wing Lok Street, Sheung Wan, Hong Kong. Please verify on Instagram or map listings before visiting.']
       ]
     },
+    legal: {
+      kicker: 'Future compliance placeholders',
+      title: 'Privacy and terms ready for client approval.',
+      privacyTitle: 'Privacy Policy placeholder',
+      privacyText: 'Draft note: this demo only remembers language preference locally in the visitor’s browser. It does not run analytics, collect form submissions, or store customer details. Replace with a lawyer/client-approved policy before adding forms, payments, newsletter, pixels, or analytics.',
+      termsTitle: 'Terms / disclaimer placeholder',
+      termsText: 'Draft note: this is a speculative demo, not the official Pineapple Bakery website. Public social imagery and uncertain business details must be approved or replaced before sales outreach or launch.',
+      privacyLink: 'Privacy',
+      termsLink: 'Terms'
+    },
     footerDisclaimer: 'Demo concept only — not affiliated with Pineapple Bakery. Built from public snippets and public Instagram/social thumbnails for draft visualization; uncertain details and image usage rights must be verified before real outreach or launch.'
   },
   zh: {
@@ -193,6 +203,16 @@ const copy = {
         ['地址在哪裡？', '公開資料顯示為香港上環永樂街87號地下2號舖。到訪前請在 Instagram 或地圖資料再作確認。']
       ]
     },
+    legal: {
+      kicker: '日後合規位置',
+      title: '私隱政策及條款位置已預留。',
+      privacyTitle: '私隱政策 placeholder',
+      privacyText: '草稿說明：此示意網站只會在訪客瀏覽器本機記住語言選擇；沒有分析追蹤、表格提交或儲存顧客資料。如日後加入表格、付款、訂閱、像素或分析工具，必須先換成客戶／法律審批版本。',
+      termsTitle: '條款／免責聲明 placeholder',
+      termsText: '草稿說明：這是網站示意概念，並非 Pineapple Bakery 官方網站。公開社交圖片及未核實商業資料，正式推廣或上線前必須取得批准或替換。',
+      privacyLink: '私隱',
+      termsLink: '條款'
+    },
     footerDisclaimer: '示意網站概念 — 非 Pineapple Bakery 官方或關聯網站。內容由公開資料及公開 Instagram／社交縮圖整理作草稿展示；未確定資料及圖片使用權必須在正式推廣或上線前核實。'
   }
 };
@@ -223,7 +243,7 @@ function App() {
   }, [language]);
 
   useEffect(() => {
-    const targets = document.querySelectorAll('.section > .section-kicker, .section > h2, .section > p, .section-heading, .product-card, .split > div, .schedule-card, .catering-card, .location > div, .map-card, .proof-grid a, details, footer');
+    const targets = document.querySelectorAll('.section > .section-kicker, .section > h2, .section > p, .section-heading, .product-card, .split > div, .schedule-card, .catering-card, .location > div, .map-card, .proof-grid a, .legal-card, details, footer');
 
     if (!('IntersectionObserver' in window)) {
       targets.forEach((el) => el.classList.add('is-visible'));
@@ -422,9 +442,26 @@ function App() {
         {t.faq.items.map((item) => <details key={item[0]}><summary>{item[0]}</summary><p>{item[1]}</p></details>)}
       </section>
 
+      <section className="section legal-placeholders" id="privacy">
+        <p className="section-kicker">{t.legal.kicker}</p>
+        <h2>{t.legal.title}</h2>
+        <div className="legal-grid">
+          <article className="legal-card">
+            <span className="legal-label">01</span>
+            <h3>{t.legal.privacyTitle}</h3>
+            <p>{t.legal.privacyText}</p>
+          </article>
+          <article className="legal-card" id="terms">
+            <span className="legal-label">02</span>
+            <h3>{t.legal.termsTitle}</h3>
+            <p>{t.legal.termsText}</p>
+          </article>
+        </div>
+      </section>
+
       <footer>
         <div><strong>Pineapple Bakery 鳳梨餅家</strong><p>{t.location.title}</p></div>
-        <div className="footer-links"><a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a><a href={mapsUrl} target="_blank" rel="noreferrer">Map</a></div>
+        <div className="footer-links"><a href={instagramUrl} target="_blank" rel="noreferrer">Instagram</a><a href={mapsUrl} target="_blank" rel="noreferrer">Map</a><a href="#privacy">{t.legal.privacyLink}</a><a href="#terms">{t.legal.termsLink}</a></div>
         <p className="disclaimer">{t.footerDisclaimer}</p>
       </footer>
     </main>
