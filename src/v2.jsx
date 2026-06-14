@@ -295,7 +295,9 @@ export default function V2App() {
           <div className="v2-award-badge"><span>foodie forks</span><strong>{t.award.label}</strong><small>Pineapple Bakery</small></div>
         </div>
         <article className="v2-copy-card">
-          <p className="v2-award-title">{t.award.title}</p>
+          <p className={`v2-award-title ${language === 'en' ? 'v2-award-title--en' : ''}`}>
+            {language === 'en' ? <>Proudly recognized.<br />Thank you!</> : t.award.title}
+          </p>
           <span>{t.award.body}</span>
           <a href={openRiceUrl} target="_blank" rel="noreferrer">{t.award.cta}<ArrowRight size={15} /></a>
         </article>
