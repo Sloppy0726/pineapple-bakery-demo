@@ -167,10 +167,35 @@ function getInitialLanguage() {
     .some((lang) => lang.toLowerCase().startsWith('zh')) ? 'zh' : 'en';
 }
 
+function HeaderInstagramIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <rect x="4" y="4" width="16" height="16" rx="4.5" />
+      <circle cx="12" cy="12" r="3.7" />
+      <path d="M17.1 6.9h.1" />
+    </svg>
+  );
+}
+
 function DoodleLogo() {
   return (
     <span className="v2-doodle-logo" aria-hidden="true">
-      <img src={image('pineapple-bakery-instagram-icon.jpg')} alt="" />
+      <svg viewBox="0 0 86 86" role="img" focusable="false">
+        <g fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M38 6c-14 2-24 12-25 27-.8 17 12 28 28 28 15.5 0 28-10.4 28-25.8C69 17.4 55.4 3.6 38 6Z" />
+          <path d="M30 9c-5.2 7.4-3.8 13 4.2 16" />
+          <path d="M49 8.8c3.8 6.6 2.4 12.8-4.4 17" />
+          <path d="M18 36c6.8 1.8 13.2-.2 18.8-6.1" />
+          <path d="M40 30c6.3 6.5 13.4 8.4 21.4 5.7" />
+          <path d="M24 25c-4.8 0-8.7 2.8-9.5 8" />
+          <path d="M62 25c4.8.8 7.6 4 7.8 8.4" />
+          <path d="M30.5 42.5h.1M53.8 42.5h.1" />
+          <path d="M37.4 52.2c4.2 2.4 8.3 2.4 12.2 0" />
+          <path d="M34 62.5c-8.6 7-15 13-19.2 18" />
+          <path d="M50 62.5c8.2 7 14.6 13 19.2 18" />
+          <path d="M42 63.5v17" />
+        </g>
+      </svg>
     </span>
   );
 }
@@ -226,14 +251,15 @@ export default function V2App() {
           <a href="#v2-faq">{t.nav.faq}</a>
         </div>
         <div className="v2-nav__actions">
-          <a href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><Camera size={22} /></a>
-          <a href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open order DM"><ShoppingBag size={22} /></a>
+          <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
+          <a className="v2-nav__icon" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open order bag"><ShoppingBag size={23} /></a>
           <div className="v2-lang" aria-label={t.nav.language}>
             {['en', 'zh'].map((item) => (
               <button key={item} type="button" className={language === item ? 'active' : ''} aria-pressed={language === item} onClick={() => setLanguage(item)}>{item === 'en' ? 'EN' : '繁'}</button>
             ))}
           </div>
           <a className="v2-order" href={instagramDmUrl} target="_blank" rel="noreferrer">{t.nav.order}<ArrowRight size={16} /></a>
+          <span className="v2-order-spark" aria-hidden="true"><i></i><i></i><i></i></span>
         </div>
       </nav>
 
