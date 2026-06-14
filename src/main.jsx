@@ -21,17 +21,6 @@ function InstagramIcon({ size = 20 }) {
   );
 }
 
-function StorefrontIcon({ size = 26 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-      <path d="M4 10.4h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M5.2 10.4 6.7 4h10.6l1.5 6.4" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M5 10.4v7.8c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-7.8" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M9 19.2v-5.1h6v5.1" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M4.2 10.4c.15 1.1 1.02 2 2.15 2 1.04 0 1.92-.82 2.08-2m.04 0c.15 1.18 1.1 2 2.16 2 1.05 0 2-.82 2.15-2m.04 0c.15 1.18 1.1 2 2.16 2 1.04 0 1.91-.82 2.08-2m.04 0c.15 1.1 1.02 2 2.15 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function App() {
   useEffect(() => {
@@ -96,7 +85,7 @@ function App() {
 
       <section className="hero" id="top">
         <nav className="nav" aria-label="Primary navigation">
-          <a href="#top" className="brand"><span className="brand-icon"><StorefrontIcon size={25}/></span><span>鳳梨</span> Pineapple Bakery</a>
+          <a href="#top" className="brand"><span className="brand-icon"><img src={`${assetBase}social/pineapple-bakery-instagram-icon.jpg`} alt="Pineapple Bakery Instagram profile icon" /></span><span>鳳梨</span> Pineapple Bakery</a>
           <div className="nav-links">
             <a href="#menu">Menu</a>
             <a href="#visit">Visit</a>
