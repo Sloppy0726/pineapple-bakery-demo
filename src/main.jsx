@@ -244,46 +244,8 @@ function InstagramIcon({ size = 20 }) {
 
 function App() {
   const [language, setLanguage] = useState(getInitialLanguage);
-  const [copyStatus, setCopyStatus] = useState('idle');
 
   const t = copy[language];
-
-  async function copyToClipboard(text) {
-    if (navigator.clipboard?.writeText) {
-      try {
-        await navigator.clipboard.writeText(text);
-        return;
-      } catch {
-        // Fall back to the temporary textarea method below.
-      }
-    }
-
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.setAttribute('readonly', '');
-    textArea.style.position = 'fixed';
-    textArea.style.top = '-9999px';
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
-  }
-
-  async function handleDmEnquiry() {
-    const dmTab = window.open(instagramDmUrl, '_blank', 'noopener,noreferrer');
-
-    try {
-      await copyToClipboard(t.catering.dmDraft);
-      setCopyStatus('copied');
-      window.setTimeout(() => setCopyStatus('idle'), 3500);
-    } catch {
-      setCopyStatus('error');
-    }
-
-    if (!dmTab) {
-      window.location.href = instagramDmUrl;
-    }
-  }
 
   useEffect(() => {
     const requestedFontTheme = new URLSearchParams(window.location.search).get('font');
@@ -433,9 +395,9 @@ function App() {
                 <div className="product-top">
                   <div className="icon-pill">{item.icon}</div>
                   {item.dmAction ? (
-                    <button className="badge-action" type="button" onClick={handleDmEnquiry} aria-label={`${t.catering.productCopyButton}: ${t.catering.dmDraft}`}>
-                      <MessageCircle size={14}/> {copyStatus === 'copied' ? t.catering.productCopied : t.catering.productCopyButton}
-                    </button>
+                    <a className="badge-action" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label={t.catering.productCopyButton}>
+                      <MessageCircle size={14}/> {t.catering.productCopyButton}
+                    </a>
                   ) : (
                     <span>{item.badge}</span>
                   )}
