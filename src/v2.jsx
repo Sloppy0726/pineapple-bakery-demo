@@ -11,7 +11,8 @@ import {
   Languages,
   Package,
   ShoppingBag,
-  Wheat
+  Wheat,
+  X
 } from 'lucide-react';
 import './v2.css';
 
@@ -34,6 +35,21 @@ const productImages = [
   'reference-product-5.jpg'
 ];
 
+const menuProductImages = [
+  'reference-product-1.jpg',
+  'food-reel-pineapple-bun.jpg',
+  'reference-product-5.jpg',
+  'reference-product-4.jpg',
+  'reference-product-2.jpg',
+  'social-reel-milk-tea.jpg',
+  'reference-product-3.jpg',
+  'reference-product-2.jpg',
+  'social-reel-bun-closeup.jpg',
+  'official-brioche-pineapple-buns.jpg',
+  'reference-product-1.jpg',
+  'reference-product-3.jpg'
+];
+
 const galleryImages = [
   'official-brioche-pineapple-buns.jpg',
   'social-reel-milk-tea.jpg',
@@ -44,18 +60,69 @@ const galleryImages = [
 ];
 
 const menuPlaceholders = [
-  ['Classic Pineapple Bun', '菠蘿麵包', 'Placeholder for signature bun details.'],
-  ['Butter Pineapple Bun', '菠蘿油', 'Placeholder for butter bun details.'],
-  ['Matcha Pineapple Bun', '抹茶菠蘿包', 'Placeholder for matcha product notes.'],
-  ['BBQ Pork Bun', '蜜汁叉燒包', 'Placeholder for savoury bun description.'],
-  ['Pineapple Cookie', '鳳梨酥曲奇', 'Placeholder for cookie description.'],
-  ['Nitro Milk Tea', '氮氣奶茶', 'Placeholder for drink details.'],
-  ['Seasonal Bun', '期間限定', 'Placeholder for future seasonal item.'],
-  ['Egg Tart', '蛋撻', 'Placeholder for pastry item.'],
-  ['Coconut Bun', '雞尾包', 'Placeholder for classic HK bun.'],
-  ['Red Bean Bun', '紅豆包', 'Placeholder for sweet filling notes.'],
-  ['Mini Bun Box', '迷你包盒', 'Placeholder for sharing box details.'],
-  ['Catering / Party Orders', '派對預訂', 'Placeholder for bulk preorder details.']
+  ['Classic Pineapple Bun', '菠蘿麵包', 'Crisp golden top, soft buttery centre.'],
+  ['Butter Pineapple Bun', '菠蘿油', 'Warm bun with a chilled butter slab.'],
+  ['Matcha Pineapple Bun', '抹茶菠蘿包', 'Tea-forward matcha twist on the classic.'],
+  ['BBQ Pork Bun', '蜜汁叉燒包', 'Sweet-savoury honey BBQ pork filling.'],
+  ['Pineapple Cookie', '鳳梨酥曲奇', 'Crisp cookie with pineapple pastry notes.'],
+  ['Nitro Milk Tea', '氮氣奶茶', 'Cool, creamy Hong Kong milk tea.'],
+  ['Seasonal Bun', '期間限定', 'Rotating limited small-batch flavour.'],
+  ['Egg Tart', '蛋撻', 'Silky custard in a delicate pastry shell.'],
+  ['Coconut Bun', '雞尾包', 'Nostalgic sweet shredded-coconut bun.'],
+  ['Red Bean Bun', '紅豆包', 'Soft bun with smooth red bean filling.'],
+  ['Mini Bun Box', '迷你包盒', 'Shareable box for tea time or offices.'],
+  ['Catering / Party Orders', '派對預訂', 'Bulk preorder support for events.']
+];
+
+const menuProductDetails = [
+  {
+    intro: 'Our classic Hong Kong pineapple bun: crisp golden cookie crust over a soft, buttery brioche-style bun, baked fresh in small batches.',
+    ingredients: ['Brioche dough', 'Butter', 'Egg', 'Milk', 'Flour', 'Sugar crust']
+  },
+  {
+    intro: 'A warm pineapple bun served with a thick slab of chilled butter for the classic sweet-and-salty café bite.',
+    ingredients: ['Pineapple bun', 'Salted butter', 'Egg', 'Milk', 'Wheat flour', 'Sugar crust']
+  },
+  {
+    intro: 'Earthy matcha meets the signature crisp topping, giving the bun a greener, tea-forward flavour while keeping the centre soft.',
+    ingredients: ['Matcha powder', 'Brioche dough', 'Butter', 'Egg', 'Milk', 'Sugar crust']
+  },
+  {
+    intro: 'A savoury bakery staple filled with glossy honey BBQ pork, wrapped in a pillowy bun and baked until golden.',
+    ingredients: ['BBQ pork', 'Honey glaze', 'Soy sauce', 'Bun dough', 'Sesame', 'Spring onion']
+  },
+  {
+    intro: 'A crisp cookie inspired by pineapple pastry flavours, made for gifting, coffee breaks, or a quick sweet snack.',
+    ingredients: ['Butter cookie dough', 'Pineapple-style filling', 'Egg', 'Flour', 'Sugar']
+  },
+  {
+    intro: 'Creamy Hong Kong milk tea finished with a nitro-style texture for a cool, smooth drink beside warm buns.',
+    ingredients: ['Black tea', 'Evaporated milk', 'Creamy foam', 'Ice', 'Light sugar']
+  },
+  {
+    intro: 'A rotating limited bun for seasonal flavours, special fillings, and small-batch experiments announced through the bakery.',
+    ingredients: ['Seasonal filling', 'Brioche dough', 'Butter', 'Egg', 'Bakery topping']
+  },
+  {
+    intro: 'A flaky Hong Kong egg tart with silky custard and a delicate pastry shell, best enjoyed slightly warm.',
+    ingredients: ['Egg custard', 'Milk', 'Sugar', 'Pastry shell', 'Butter']
+  },
+  {
+    intro: 'A nostalgic coconut bun with a sweet shredded-coconut centre and soft bakery bread exterior.',
+    ingredients: ['Shredded coconut', 'Butter', 'Sugar', 'Milk bread dough', 'Egg wash']
+  },
+  {
+    intro: 'Soft bread wrapped around a smooth red bean filling for a gentle, traditional sweet bun.',
+    ingredients: ['Red bean paste', 'Milk bread dough', 'Butter', 'Egg', 'Sesame']
+  },
+  {
+    intro: 'A shareable box of smaller buns for office snacks, family tea time, or trying several flavours in one order.',
+    ingredients: ['Assorted mini buns', 'Seasonal fillings', 'Brioche dough', 'Bakery toppings']
+  },
+  {
+    intro: 'Custom preorder support for office treats, parties, events, and larger pickup quantities arranged by Instagram DM.',
+    ingredients: ['Assorted buns', 'Party box packaging', 'Custom quantities', 'Advance preorder']
+  }
 ];
 
 const schedulePlaceholders = [
@@ -241,7 +308,21 @@ function Stamp({ children }) {
 export default function V2App() {
   const rootRef = useRef(null);
   const [language, setLanguage] = useState(getInitialLanguage);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const t = copy[language];
+
+  useEffect(() => {
+    if (!selectedProduct) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setSelectedProduct(null);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProduct]);
 
   useEffect(() => {
     document.documentElement.lang = language === 'zh' ? 'zh-Hant-HK' : 'en';
@@ -408,18 +489,53 @@ export default function V2App() {
             <p>Placeholder catalogue — final product list coming next.</p>
           </div>
           <div className="v2-menu-grid">
-            {menuPlaceholders.map(([name, chinese, text], index) => (
-              <article className="v2-menu-card" key={name}>
-                <img src={image(productImages[index % productImages.length])} alt={`${name} placeholder draft thumbnail`} />
-                <span>Item {String(index + 1).padStart(2, '0')}</span>
-                <h3>{name}</h3>
-                <p className="v2-menu-card__zh">{chinese}</p>
-                <p>{text}</p>
-                <button type="button">Details placeholder</button>
-              </article>
-            ))}
+            {menuPlaceholders.map(([name, chinese, text], index) => {
+              const product = { name, chinese, text, imageName: menuProductImages[index], ...menuProductDetails[index] };
+              return (
+                <button
+                  className="v2-menu-card"
+                  type="button"
+                  key={name}
+                  aria-label={`View details for ${name}`}
+                  onClick={() => setSelectedProduct(product)}
+                >
+                  <img src={image(product.imageName)} alt={`${name} product thumbnail`} />
+                  <span>Item {String(index + 1).padStart(2, '0')}</span>
+                  <h3>{name}</h3>
+                  <p className="v2-menu-card__zh">{chinese}</p>
+                  <p>{text}</p>
+                  <em>Tap for details</em>
+                </button>
+              );
+            })}
           </div>
         </section>
+
+        {selectedProduct && (
+          <div className="v2-product-modal" role="presentation" onMouseDown={() => setSelectedProduct(null)}>
+            <article
+              className="v2-product-modal__card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="v2-product-modal-title"
+              onMouseDown={(event) => event.stopPropagation()}
+            >
+              <button className="v2-product-modal__close" type="button" aria-label="Close product details" onClick={() => setSelectedProduct(null)}><X size={20} /></button>
+              <img src={image(selectedProduct.imageName)} alt={`${selectedProduct.name} close-up`} />
+              <div className="v2-product-modal__body">
+                <span>Product details</span>
+                <h2 id="v2-product-modal-title">{selectedProduct.name}</h2>
+                <p className="v2-product-modal__zh">{selectedProduct.chinese}</p>
+                <p>{selectedProduct.intro}</p>
+                <h3>Ingredients</h3>
+                <ul>
+                  {selectedProduct.ingredients.map((ingredient) => <li key={ingredient}>{ingredient}</li>)}
+                </ul>
+                <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">Ask about this item<ArrowRight size={16} /></a>
+              </div>
+            </article>
+          </div>
+        )}
 
         <footer className="v2-footer">
           <div className="v2-footer__features">
