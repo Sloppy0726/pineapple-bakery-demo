@@ -27,11 +27,11 @@ const storageKey = 'pineapple-bakery-v2-language';
 const image = (name) => `${assetBase}social/${name}`;
 
 const productImages = [
-  'official-brioche-pineapple-buns.jpg',
-  'food-reel-pineapple-bun.jpg',
-  'social-reel-bun-closeup.jpg',
-  'social-reel-milk-tea.jpg',
-  'official-brioche-pineapple-buns.jpg'
+  'reference-product-1.jpg',
+  'reference-product-2.jpg',
+  'reference-product-3.jpg',
+  'reference-product-4.jpg',
+  'reference-product-5.jpg'
 ];
 
 const galleryImages = [
