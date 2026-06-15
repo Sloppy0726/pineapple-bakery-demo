@@ -133,14 +133,14 @@ body[data-site-version='v2'] {
 }
 .v2-nav__icon svg { stroke-width: 2.45; }
 .v2-lang {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(42,29,20,.12);
+  border-radius: 999px;
+  background: rgba(255, 250, 239, .76);
+  box-shadow: 0 10px 24px rgba(44,23,11,.08);
 }
 .v2-lang button {
   border: 0;
