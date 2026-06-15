@@ -85,7 +85,7 @@ const copy = {
     story: {
       label: 'Our story',
       title: 'Baked with heart, Hong Kong in every bite.',
-      body: 'Pineapple Bakery 鳳梨餅家 started with a simple love for Hong Kong’s classic flavours. We believe in honest ingredients, artisan baking, and keeping traditions alive—one bun at a time.',
+      body: 'Pineapple Bakery 鳳梨餅家 started with a simple love for Hong Kong’s classic flavours. We believe in honest ingredients, artisan baking, and keeping traditions alive—one bun at a time. From our brioche pineapple buns to seasonal creations, everything is baked fresh, with heart.',
       cta: 'About us'
     },
     galleryTitle: 'Fresh from our oven',
@@ -140,7 +140,7 @@ const copy = {
     story: {
       label: '我們的故事',
       title: '用心烘焙，每一口都是香港味。',
-      body: 'Pineapple Bakery 鳳梨餅家由一份對香港經典味道的喜愛開始。相信好材料、手作烘焙，以及將傳統一個包一個包延續下去。',
+      body: 'Pineapple Bakery 鳳梨餅家由一份對香港經典味道的喜愛開始。相信好材料、手作烘焙，以及將傳統一個包一個包延續下去。由 brioche 菠蘿包到季節限定創作，每一款都新鮮出爐，用心製作。',
       cta: '關於我們'
     },
     galleryTitle: '新鮮出爐',
@@ -322,7 +322,7 @@ export default function V2App() {
         </div>
         <article className="v2-copy-card">
           <p className={`v2-award-title ${language === 'en' ? 'v2-award-title--en' : ''}`}>
-            {language === 'en' ? <>Proudly recognized.<br />Thank you!</> : t.award.title}
+            {language === 'en' ? <>Proudly recognized.<br />Thank you! <span className="v2-award-heart" aria-hidden="true">♥</span></> : t.award.title}
           </p>
           <span>{t.award.body}</span>
           <a href={openRiceUrl} target="_blank" rel="noreferrer">{t.award.cta}<ArrowRight size={15} /></a>
@@ -333,7 +333,7 @@ export default function V2App() {
           <p>{t.story.body}</p>
           <a href={instagramUrl} target="_blank" rel="noreferrer">{t.story.cta}<ArrowRight size={15} /></a>
         </article>
-        <img className="v2-shop-photo" src={image('reference-story-street.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
+        <img className="v2-shop-photo" src={image('reference-shopfront-full.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
       </section>
 
       <section className="v2-gallery v2-reveal" id="v2-faq">
