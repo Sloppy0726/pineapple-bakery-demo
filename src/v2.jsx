@@ -360,7 +360,6 @@ export default function V2App() {
           <div className="v2-nav__links">
             <a href={homeUrl}>{t.nav.home}</a>
             <a href={menuUrl}>{t.nav.menu}</a>
-            <a href={homeAnchor('#v2-preorder')}>{t.nav.preorder}</a>
             <a href={scheduleUrl}>{t.nav.schedule}</a>
             <a href={homeAnchor('#v2-about')}>{t.nav.about}</a>
             <a href={homeAnchor('#v2-faq')}>{t.nav.faq}</a>
@@ -439,7 +438,6 @@ export default function V2App() {
           <div className="v2-nav__links">
             <a href={homeUrl}>{t.nav.home}</a>
             <a href={menuUrl}>{t.nav.menu}</a>
-            <a href={homeAnchor('#v2-preorder')}>{t.nav.preorder}</a>
             <a href={scheduleUrl}>{t.nav.schedule}</a>
             <a href={homeAnchor('#v2-about')}>{t.nav.about}</a>
             <a href={homeAnchor('#v2-faq')}>{t.nav.faq}</a>
@@ -536,7 +534,6 @@ export default function V2App() {
         <div className="v2-nav__links">
           <a href={homeAnchor('#v2-top')}>{t.nav.home}</a>
           <a href={menuUrl}>{t.nav.menu}</a>
-          <a href="#v2-preorder">{t.nav.preorder}</a>
           <a href={scheduleUrl}>{t.nav.schedule}</a>
           <a href="#v2-about">{t.nav.about}</a>
           <a href="#v2-faq">{t.nav.faq}</a>
