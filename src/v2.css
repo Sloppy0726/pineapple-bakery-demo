@@ -867,7 +867,7 @@ body[data-site-version='v2'] {
     min-height: 0;
     background:
       linear-gradient(180deg, rgba(255,247,229,.04) 0 250px, rgba(255,247,229,.9) 340px, #fff7e5 100%),
-      url('/pineapple-bakery-demo/social/front-page-background.jpg') 76% 0 / auto clamp(330px, 92vw, 390px) no-repeat;
+      url('/pineapple-bakery-demo/social/front-page-background.jpg') 100% 0 / auto clamp(320px, 88vw, 370px) no-repeat;
   }
   .v2-hero__copy { padding: clamp(350px, 96vw, 410px) 18px 40px; }
   .v2-hero h1 { font-size: clamp(3.1rem, 15vw, 5rem); }
