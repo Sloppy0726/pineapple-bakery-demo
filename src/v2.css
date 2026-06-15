@@ -105,7 +105,8 @@ body[data-site-version='v2'] {
   text-decoration: none;
   padding: 12px 0;
 }
-.v2-nav__links a:first-child::after,
+.v2-nav__links a.is-active::after,
+.v2-nav__links a[aria-current='page']::after,
 .v2-nav__links a:hover::after,
 .v2-nav__links a:focus-visible::after {
   content: '';

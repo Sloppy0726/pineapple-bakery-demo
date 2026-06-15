@@ -361,6 +361,8 @@ export default function V2App() {
   const isSchedulePage = currentPath.endsWith('/schedule');
   const isAboutPage = currentPath.endsWith('/about');
   const isFaqPage = currentPath.endsWith('/faq');
+  const currentPage = isMenuPage ? 'menu' : isSchedulePage ? 'schedule' : isAboutPage ? 'about' : isFaqPage ? 'faq' : 'home';
+  const navState = (page) => page === currentPage ? { className: 'is-active', 'aria-current': 'page' } : {};
 
   if (isMenuPage) {
     return (
@@ -371,11 +373,11 @@ export default function V2App() {
             <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
           </a>
           <div className="v2-nav__links">
-            <a href={homeUrl}>{t.nav.home}</a>
-            <a href={menuUrl}>{t.nav.menu}</a>
-            <a href={scheduleUrl}>{t.nav.schedule}</a>
-            <a href={aboutUrl}>{t.nav.about}</a>
-            <a href={faqUrl}>{t.nav.faq}</a>
+            <a {...navState('home')} href={homeUrl}>{t.nav.home}</a>
+            <a {...navState('menu')} href={menuUrl}>{t.nav.menu}</a>
+            <a {...navState('schedule')} href={scheduleUrl}>{t.nav.schedule}</a>
+            <a {...navState('about')} href={aboutUrl}>{t.nav.about}</a>
+            <a {...navState('faq')} href={faqUrl}>{t.nav.faq}</a>
           </div>
           <div className="v2-nav__actions">
             <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
@@ -449,11 +451,11 @@ export default function V2App() {
             <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
           </a>
           <div className="v2-nav__links">
-            <a href={homeUrl}>{t.nav.home}</a>
-            <a href={menuUrl}>{t.nav.menu}</a>
-            <a href={scheduleUrl}>{t.nav.schedule}</a>
-            <a href={aboutUrl}>{t.nav.about}</a>
-            <a href={faqUrl}>{t.nav.faq}</a>
+            <a {...navState('home')} href={homeUrl}>{t.nav.home}</a>
+            <a {...navState('menu')} href={menuUrl}>{t.nav.menu}</a>
+            <a {...navState('schedule')} href={scheduleUrl}>{t.nav.schedule}</a>
+            <a {...navState('about')} href={aboutUrl}>{t.nav.about}</a>
+            <a {...navState('faq')} href={faqUrl}>{t.nav.faq}</a>
           </div>
           <div className="v2-nav__actions">
             <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
@@ -547,11 +549,11 @@ export default function V2App() {
             <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
           </a>
           <div className="v2-nav__links">
-            <a href={homeUrl}>{t.nav.home}</a>
-            <a href={menuUrl}>{t.nav.menu}</a>
-            <a href={scheduleUrl}>{t.nav.schedule}</a>
-            <a href={aboutUrl}>{t.nav.about}</a>
-            <a href={faqUrl}>{t.nav.faq}</a>
+            <a {...navState('home')} href={homeUrl}>{t.nav.home}</a>
+            <a {...navState('menu')} href={menuUrl}>{t.nav.menu}</a>
+            <a {...navState('schedule')} href={scheduleUrl}>{t.nav.schedule}</a>
+            <a {...navState('about')} href={aboutUrl}>{t.nav.about}</a>
+            <a {...navState('faq')} href={faqUrl}>{t.nav.faq}</a>
           </div>
           <div className="v2-nav__actions">
             <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
@@ -626,11 +628,11 @@ export default function V2App() {
             <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
           </a>
           <div className="v2-nav__links">
-            <a href={homeUrl}>{t.nav.home}</a>
-            <a href={menuUrl}>{t.nav.menu}</a>
-            <a href={scheduleUrl}>{t.nav.schedule}</a>
-            <a href={aboutUrl}>{t.nav.about}</a>
-            <a href={faqUrl}>{t.nav.faq}</a>
+            <a {...navState('home')} href={homeUrl}>{t.nav.home}</a>
+            <a {...navState('menu')} href={menuUrl}>{t.nav.menu}</a>
+            <a {...navState('schedule')} href={scheduleUrl}>{t.nav.schedule}</a>
+            <a {...navState('about')} href={aboutUrl}>{t.nav.about}</a>
+            <a {...navState('faq')} href={faqUrl}>{t.nav.faq}</a>
           </div>
           <div className="v2-nav__actions">
             <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
@@ -700,11 +702,11 @@ export default function V2App() {
           <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
         </a>
         <div className="v2-nav__links">
-          <a href={homeAnchor('#v2-top')}>{t.nav.home}</a>
-          <a href={menuUrl}>{t.nav.menu}</a>
-          <a href={scheduleUrl}>{t.nav.schedule}</a>
-          <a href={aboutUrl}>{t.nav.about}</a>
-          <a href={faqUrl}>{t.nav.faq}</a>
+          <a {...navState('home')} href={homeAnchor('#v2-top')}>{t.nav.home}</a>
+          <a {...navState('menu')} href={menuUrl}>{t.nav.menu}</a>
+          <a {...navState('schedule')} href={scheduleUrl}>{t.nav.schedule}</a>
+          <a {...navState('about')} href={aboutUrl}>{t.nav.about}</a>
+          <a {...navState('faq')} href={faqUrl}>{t.nav.faq}</a>
         </div>
         <div className="v2-nav__actions">
           <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
