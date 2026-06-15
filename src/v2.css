@@ -881,8 +881,7 @@ body[data-site-version='v2'] {
   .v2-gallery__head { align-items: flex-start; flex-direction: column; }
   .v2-subscribe { grid-template-columns: 1fr; }
   .v2-actions, .v2-button { width: 100%; }
-  .v2-site .v2-float { font-size: 0; width: 50px; padding: 0; }
-  .v2-site .v2-float svg { width: 21px; height: 21px; }
+  .v2-site .v2-float { display: none; }
 }
 
 @media (max-width: 480px) {
