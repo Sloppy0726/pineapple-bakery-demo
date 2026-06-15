@@ -43,6 +43,21 @@ const galleryImages = [
   'food-reel-pineapple-bun.jpg'
 ];
 
+const menuPlaceholders = [
+  ['Classic Pineapple Bun', '菠蘿麵包', 'Placeholder for signature bun details.'],
+  ['Butter Pineapple Bun', '菠蘿油', 'Placeholder for butter bun details.'],
+  ['Matcha Pineapple Bun', '抹茶菠蘿包', 'Placeholder for matcha product notes.'],
+  ['BBQ Pork Bun', '蜜汁叉燒包', 'Placeholder for savoury bun description.'],
+  ['Pineapple Cookie', '鳳梨酥曲奇', 'Placeholder for cookie description.'],
+  ['Nitro Milk Tea', '氮氣奶茶', 'Placeholder for drink details.'],
+  ['Seasonal Bun', '期間限定', 'Placeholder for future seasonal item.'],
+  ['Egg Tart', '蛋撻', 'Placeholder for pastry item.'],
+  ['Coconut Bun', '雞尾包', 'Placeholder for classic HK bun.'],
+  ['Red Bean Bun', '紅豆包', 'Placeholder for sweet filling notes.'],
+  ['Mini Bun Box', '迷你包盒', 'Placeholder for sharing box details.'],
+  ['Catering / Party Orders', '派對預訂', 'Placeholder for bulk preorder details.']
+];
+
 const copy = {
   en: {
     nav: { home: 'Home', menu: 'Menu', preorder: 'Preorder', schedule: 'Schedule', about: 'About', faq: 'FAQ', order: 'Order now', language: 'Language' },
@@ -225,7 +240,7 @@ export default function V2App() {
 
     gsap.timeline({ defaults })
       .from('.v2-nav', { y: -24, opacity: 0, duration: 0.62 })
-      .from('.v2-hero__copy > *', { y: 28, opacity: 0, stagger: 0.08 }, '-=0.28')
+      .from('.v2-hero__copy > *, .v2-menu-hero > *', { y: 28, opacity: 0, stagger: 0.08 }, '-=0.28')
       .from('.v2-hero__photo', { scale: 0.97, y: 36, opacity: 0 }, '-=0.42')
       .from('.v2-hero__drink, .v2-stamp, .v2-paper-doodle', { y: 22, rotate: -3, opacity: 0, stagger: 0.08 }, '-=0.36');
 
@@ -263,6 +278,12 @@ export default function V2App() {
       stagger: 0.045
     });
 
+    revealSection('.v2-menu-catalog', '.v2-menu-catalog__head > *, .v2-menu-card', {
+      y: 32,
+      stagger: 0.055,
+      scrollTrigger: { start: 'top 110%' }
+    });
+
     revealSection('.v2-footer', '.v2-footer__features > span, .v2-subscribe, .v2-disclaimer', {
       y: 28,
       stagger: 0.07,
@@ -298,16 +319,100 @@ export default function V2App() {
     window.__pineappleBakeryMotion.triggers = ScrollTrigger.getAll().length;
   }, { scope: rootRef, dependencies: [language], revertOnUpdate: true });
 
+  const homeUrl = assetBase;
+  const menuUrl = `${assetBase}menu/`;
+  const homeAnchor = (anchor) => `${assetBase}${anchor}`;
+  const isMenuPage = window.location.pathname.replace(/\/+$/, '').endsWith('/menu');
+
+  if (isMenuPage) {
+    return (
+      <main className="v2-site v2-menu-page" ref={rootRef}>
+        <nav className="v2-nav" aria-label="Version 2 navigation">
+          <a className="v2-brand" href={homeUrl} aria-label="Pineapple Bakery home">
+            <DoodleLogo />
+            <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
+          </a>
+          <div className="v2-nav__links">
+            <a href={homeUrl}>{t.nav.home}</a>
+            <a href={menuUrl}>{t.nav.menu}</a>
+            <a href={homeAnchor('#v2-preorder')}>{t.nav.preorder}</a>
+            <a href={homeAnchor('#v2-schedule')}>{t.nav.schedule}</a>
+            <a href={homeAnchor('#v2-about')}>{t.nav.about}</a>
+            <a href={homeAnchor('#v2-faq')}>{t.nav.faq}</a>
+          </div>
+          <div className="v2-nav__actions">
+            <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
+            <a className="v2-nav__icon" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open order bag"><ShoppingBag size={23} /></a>
+            <div className="v2-lang" aria-label={t.nav.language}>
+              {['en', 'zh'].map((item) => (
+                <button key={item} type="button" className={language === item ? 'active' : ''} aria-pressed={language === item} onClick={() => setLanguage(item)}>{item === 'en' ? 'EN' : '繁'}</button>
+              ))}
+            </div>
+            <a className="v2-order" href={instagramDmUrl} target="_blank" rel="noreferrer">{t.nav.order}<ArrowRight size={16} /></a>
+            <span className="v2-order-spark" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+        </nav>
+
+        <section className="v2-menu-hero">
+          <p className="v2-kicker">Full catalogue</p>
+          <h1>Menu placeholders for every future product.</h1>
+          <p>We’ll replace these placeholder cards once the final product list, prices, descriptions, and photos are confirmed.</p>
+          <div className="v2-actions">
+            <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">Preorder enquiry<ArrowRight size={16} /></a>
+            <a className="v2-button" href={homeUrl}>Back to homepage</a>
+          </div>
+        </section>
+
+        <section className="v2-menu-catalog" aria-label="Product placeholder catalogue">
+          <div className="v2-menu-catalog__head">
+            <h2>Product showcase</h2>
+            <p>Placeholder catalogue — final product list coming next.</p>
+          </div>
+          <div className="v2-menu-grid">
+            {menuPlaceholders.map(([name, chinese, text], index) => (
+              <article className="v2-menu-card" key={name}>
+                <img src={image(productImages[index % productImages.length])} alt={`${name} placeholder draft thumbnail`} />
+                <span>Item {String(index + 1).padStart(2, '0')}</span>
+                <h3>{name}</h3>
+                <p className="v2-menu-card__zh">{chinese}</p>
+                <p>{text}</p>
+                <button type="button">Details placeholder</button>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <footer className="v2-footer">
+          <div className="v2-footer__features">
+            {t.footer.map((item, index) => {
+              const Icon = [Wheat, DoodleLogo, Heart, Package][index];
+              return <span key={item}>{index === 1 ? <DoodleLogo /> : <Icon size={24} />}<strong>{item}</strong><small>{t.footerSmall[index]}</small></span>;
+            })}
+          </div>
+          <form className="v2-subscribe" onSubmit={(event) => event.preventDefault()}>
+            <h3>{t.emailTitle}</h3>
+            <p>{t.emailText}</p>
+            <label><span className="sr-only">{t.emailPlaceholder}</span><input type="email" placeholder={t.emailPlaceholder} /></label>
+            <button type="submit">{t.subscribe}</button>
+          </form>
+          <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+        </footer>
+
+        <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>
+      </main>
+    );
+  }
+
   return (
     <main className="v2-site" ref={rootRef}>
       <nav className="v2-nav" aria-label="Version 2 navigation">
-        <a className="v2-brand" href="#v2-top" aria-label="Pineapple Bakery home">
+        <a className="v2-brand" href={homeAnchor('#v2-top')} aria-label="Pineapple Bakery home">
           <DoodleLogo />
           <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
         </a>
         <div className="v2-nav__links">
-          <a href="#v2-top">{t.nav.home}</a>
-          <a href="#v2-menu">{t.nav.menu}</a>
+          <a href={homeAnchor('#v2-top')}>{t.nav.home}</a>
+          <a href={menuUrl}>{t.nav.menu}</a>
           <a href="#v2-preorder">{t.nav.preorder}</a>
           <a href="#v2-schedule">{t.nav.schedule}</a>
           <a href="#v2-about">{t.nav.about}</a>
@@ -333,7 +438,7 @@ export default function V2App() {
           <p>{t.hero.text}</p>
           <div className="v2-actions">
             <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">{t.hero.primary}<ArrowRight size={16} /></a>
-            <a className="v2-button" href="#v2-menu">{t.hero.menu}</a>
+            <a className="v2-button" href={menuUrl}>{t.hero.menu}</a>
             <a className="v2-button" href="#v2-schedule">{t.hero.schedule}</a>
           </div>
           <div className="v2-feature-row" aria-label="Bakery highlights">
@@ -363,7 +468,7 @@ export default function V2App() {
               </article>
             ))}
           </div>
-          <a className="v2-button v2-button--outline" href={instagramUrl} target="_blank" rel="noreferrer">View full menu<ArrowRight size={16} /></a>
+          <a className="v2-button v2-button--outline" href={menuUrl}>View full menu<ArrowRight size={16} /></a>
         </div>
 
         <aside className="v2-preorder" id="v2-schedule">

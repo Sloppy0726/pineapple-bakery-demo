@@ -1,7 +1,9 @@
 import { copyFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
-const v2Index = join('dist', 'v2', 'index.html');
-mkdirSync(dirname(v2Index), { recursive: true });
-copyFileSync(join('dist', 'index.html'), v2Index);
-console.log('copied dist/index.html -> dist/v2/index.html');
+const aliases = [join('dist', 'v2', 'index.html'), join('dist', 'menu', 'index.html')];
+for (const alias of aliases) {
+  mkdirSync(dirname(alias), { recursive: true });
+  copyFileSync(join('dist', 'index.html'), alias);
+  console.log(`copied dist/index.html -> ${alias}`);
+}
