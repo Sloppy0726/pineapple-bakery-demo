@@ -863,8 +863,13 @@ body[data-site-version='v2'] {
   .v2-nav__actions { justify-content: flex-end; gap: 8px; }
   .v2-order { display: none; }
   .v2-nav__links { overflow-x: auto; width: 100%; padding-bottom: 4px; flex-wrap: nowrap; }
-  .v2-hero { min-height: 0; }
-  .v2-hero__copy { padding: 32px 18px 40px; }
+  .v2-hero {
+    min-height: 0;
+    background:
+      linear-gradient(180deg, rgba(255,247,229,.04) 0 250px, rgba(255,247,229,.9) 340px, #fff7e5 100%),
+      url('/pineapple-bakery-demo/social/front-page-background.jpg') 76% 0 / auto clamp(330px, 92vw, 390px) no-repeat;
+  }
+  .v2-hero__copy { padding: clamp(350px, 96vw, 410px) 18px 40px; }
   .v2-hero h1 { font-size: clamp(3.1rem, 15vw, 5rem); }
   .v2-hero__photo { min-height: 360px; }
   .v2-stamp { width: 78px; height: 78px; font-size: .62rem; }
