@@ -47,6 +47,7 @@ const viewports = [
           topOrderButtons: document.querySelectorAll('.v2-order').length,
           topOrderBagIcons: [...document.querySelectorAll('.v2-nav__icon')].filter((a) => a.getAttribute('aria-label')?.includes('bag')).length,
           navLinks,
+          navFontSize: Number.parseFloat(getComputedStyle(document.querySelector('.v2-nav__links')).fontSize),
           mobileNavSameRow: !linkBox || !actionsBox ? true : Math.abs(linkBox.y - actionsBox.y) < 12,
           horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
           legacyV1CodePresent: Boolean(document.querySelector('.hero, .social-float, .language-switch'))
@@ -58,7 +59,7 @@ const viewports = [
     }
   }
 
-  const zhPage = await browser.newPage({ viewport: viewports[0] });
+  const zhPage = await browser.newPage({ viewport: viewports[1] });
   const zhErrors = [];
   zhPage.on('pageerror', (err) => zhErrors.push(err.message));
   zhPage.on('console', (msg) => { if (msg.type() === 'error') zhErrors.push(msg.text()); });
@@ -66,8 +67,9 @@ const viewports = [
   await zhPage.getByRole('heading', { name: '香港菠蘿包 & 氮氣奶茶' }).waitFor({ timeout: 5000 });
   const zhHero = await zhPage.evaluate(() => ({
     route: '/?lang=zh',
-    viewport: 'desktop',
+    viewport: 'mobile',
     errors: [],
+    navLinks: [...document.querySelectorAll('.v2-nav__links a')].filter((a) => getComputedStyle(a).display !== 'none').map((a) => a.textContent.trim()),
     kicker: document.querySelector('.v2-hero .v2-kicker')?.textContent.trim() || '',
     title: document.querySelector('.v2-hero h1')?.textContent.replace(/\s+/g, ' ').trim() || '',
     staleCombinedMilkTea: document.body.textContent.includes('香港菠蘿包與奶茶'),
@@ -81,8 +83,8 @@ const viewports = [
 
   const failures = results.filter((item) => item.errors.length || (
     item.route === '/?lang=zh'
-      ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || item.staleCombinedMilkTea || item.staleShortTitle)
-      : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
+      ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.staleCombinedMilkTea || item.staleShortTitle)
+      : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
   ));
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));
