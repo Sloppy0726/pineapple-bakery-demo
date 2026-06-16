@@ -919,6 +919,12 @@ body[data-site-version='current'] {
     linear-gradient(180deg, rgba(42,29,20,.06), rgba(255,250,241,.1)),
     url('/pineapple-bakery-demo/social/about-background-packaging.png') right center / cover no-repeat;
 }
+.v2-faq-hero {
+  background:
+    linear-gradient(90deg, rgba(255,250,241,.98) 0 34%, rgba(255,250,241,.86) 46%, rgba(255,250,241,.26) 66%, rgba(255,250,241,.03) 100%),
+    linear-gradient(180deg, rgba(42,29,20,.04), rgba(255,250,241,.08)),
+    url('/pineapple-bakery-demo/social/faq-background-any-questions.jpg') right center / cover no-repeat;
+}
 .v2-about-story {
   border-top: 1px solid rgba(42, 29, 20, .08);
 }
