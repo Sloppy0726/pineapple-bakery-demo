@@ -39,8 +39,8 @@ const viewports = [
           siteVersion: document.body.dataset.siteVersion,
           metaDescriptionHasKeywords: /pineapple buns|菠蘿包|nitro milk tea|Sheung Wan bakery/i.test(description),
           jsonLdType: jsonLd['@type'],
-          storyHighlights: document.querySelectorAll('.v2-highlight').length,
-          storyHighlightLabels: [...document.querySelectorAll('.v2-highlight strong')].map((el) => el.textContent.trim().toLowerCase()),
+          storyCards: document.querySelectorAll('.v2-story-card').length,
+          storyCardLabels: [...document.querySelectorAll('.v2-story-card__copy b')].map((el) => el.textContent.trim().toLowerCase()),
           galleryText: document.querySelector('.v2-gallery')?.textContent.toLowerCase() || '',
           highlightNotes: document.querySelectorAll('.v2-highlight-notes article').length,
           oldPhotoStripImages: document.querySelectorAll('.v2-gallery__grid img').length,
@@ -61,7 +61,7 @@ const viewports = [
   await browser.close();
   console.log(JSON.stringify(results, null, 2));
 
-  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.storyHighlights < 5) || (item.route === '/' && item.highlightNotes < 3) || (item.route === '/' && (item.storyHighlightLabels.includes('schedule') || item.storyHighlightLabels.includes('best bakery') || item.galleryText.includes('best bakery recognition'))) || item.oldPhotoStripImages !== 0);
+  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0);
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));
     process.exit(1);

@@ -50,41 +50,38 @@ const menuProductImages = [
   'reference-product-3.jpg'
 ];
 
-const storyHighlights = [
+const storyShowcase = [
   {
-    label: 'friends 28',
-    title: 'Customer reposts',
+    label: 'Customer repost',
     zh: '客人回圖',
-    text: 'A showcase space for approved Instagram story reposts from customers enjoying pineapple buns and bakery pickups.',
+    handle: '@pineapplebakeryhk',
+    title: 'Fresh bun pickup',
+    text: 'Approved customer repost space for a tagged pineapple bun story, pickup reaction, or unboxing moment.',
     imageName: 'food-reel-pineapple-bun.jpg'
   },
   {
-    label: 'friends 27',
-    title: 'Tagged customer photos',
-    zh: '標記回圖',
-    text: 'Saved highlight-style moments for customer tagged photos, social mentions, and real community proof.',
+    label: 'Tagged story',
+    zh: '標記動態',
+    handle: '@customer',
+    title: 'Shared from stories',
+    text: 'Use this slot for a real IG story screenshot from a customer after permission and wording approval.',
     imageName: 'social-reel-bun-closeup.jpg'
   },
   {
-    label: 'repost',
-    title: 'Story repost showcase',
-    zh: '限時動態轉發',
-    text: 'A dedicated customer repost highlight so visitors can quickly see real bakery reactions from Instagram.',
+    label: 'Story repost',
+    zh: '限時轉發',
+    handle: '@pineapplebakeryhk',
+    title: 'Bakery reaction',
+    text: 'A story-style customer proof card that shows social response instead of another static gallery image.',
     imageName: 'reference-product-1.jpg'
   },
   {
-    label: '客人回圖',
-    title: 'Customer photo wall',
-    zh: '客人相片牆',
-    text: 'Customer-generated photos can be dropped here once screenshots and permission are approved.',
+    label: 'Customer photo',
+    zh: '客人相片',
+    handle: '@tagged',
+    title: 'Real repost showcase',
+    text: 'Drop in approved repost screenshots here to build credibility and searchable customer-proof content.',
     imageName: 'reference-product-2.jpg'
-  },
-  {
-    label: 'tagged',
-    title: 'Tagged on Instagram',
-    zh: 'IG 標記',
-    text: 'A social proof carousel for tagged posts, reposts, and community word-of-mouth around Pineapple Bakery.',
-    imageName: 'reference-product-3.jpg'
   }
 ];
 
@@ -218,9 +215,9 @@ const copy = {
       body: 'Pineapple Bakery 鳳梨餅家 started with a simple love for Hong Kong’s classic flavours. We believe in honest ingredients, artisan baking, and keeping traditions alive—one bun at a time. From our brioche pineapple buns to seasonal creations, everything is baked fresh, with heart.',
       cta: 'About us'
     },
-    galleryTitle: 'Instagram highlights & customer proof',
-    gallerySub: 'A showcase of customer reposts, tagged photos, and story highlights from @pineapplebakeryhk.',
-    instagram: 'See Instagram highlights',
+    galleryTitle: 'Customer repost story showcase',
+    gallerySub: 'A showcase area for the actual customer repost story frames inside the IG highlights.',
+    instagram: 'See Instagram',
     footer: ['Quality ingredients', 'Baked fresh', 'Made with heart', 'Preorder preferred'],
     footerSmall: ['Chosen with care', 'In small batches', 'For our community', 'Less waste, more care'],
     emailTitle: 'Stay in the loop',
@@ -273,8 +270,8 @@ const copy = {
       body: 'Pineapple Bakery 鳳梨餅家由一份對香港經典味道的喜愛開始。相信好材料、手作烘焙，以及將傳統一個包一個包延續下去。由 brioche 菠蘿包到季節限定創作，每一款都新鮮出爐，用心製作。',
       cta: '關於我們'
     },
-    galleryTitle: 'Instagram 精選與客人回圖',
-    gallerySub: '整合 @pineapplebakeryhk 的客人回圖、標記相片及限時動態轉發。',
+    galleryTitle: '客人回圖 Story Showcase',
+    gallerySub: '展示 IG 精選入面實際客人回圖、標記相片及限時動態轉發內容。',
     instagram: '查看 Instagram 精選',
     footer: ['優質材料', '新鮮烘焙', '用心製作', '建議預訂'],
     footerSmall: ['細心挑選', '小批量製作', '為社群而做', '少浪費，更用心'],
@@ -402,7 +399,7 @@ export default function App() {
       scrollTrigger: { start: 'top 72%' }
     });
 
-    revealSection('.v2-gallery', '.v2-gallery__head > *, .v2-highlight, .v2-highlight-notes article, .v2-seo-note', {
+    revealSection('.v2-gallery', '.v2-gallery__head > *, .v2-story-card, .v2-seo-note', {
       y: 30,
       stagger: 0.055
     });
@@ -929,26 +926,26 @@ export default function App() {
           <div><h2>{t.galleryTitle}</h2><p>{t.gallerySub}</p></div>
           <a className="v2-button v2-button--outline" href={instagramUrl} target="_blank" rel="noreferrer"><Camera size={17} />{t.instagram}</a>
         </div>
-        <div className="v2-highlight-shelf" aria-label="Instagram story highlights">
-          {storyHighlights.map((item) => (
-            <article className="v2-highlight" key={item.label}>
-              <div className="v2-highlight__bubble">
-                <img src={image(item.imageName)} alt={`${item.title} story highlight cover`} />
+        <div className="v2-story-showcase" aria-label="Customer repost Instagram story showcase">
+          {storyShowcase.map((item) => (
+            <article className="v2-story-card" key={item.title}>
+              <img src={image(item.imageName)} alt={`${item.title} customer repost story`} />
+              <div className="v2-story-card__overlay">
+                <div className="v2-story-card__progress" aria-hidden="true"><span></span><span></span><span></span></div>
+                <div className="v2-story-card__top">
+                  <span>{item.handle}</span>
+                  <small>{item.zh}</small>
+                </div>
+                <div className="v2-story-card__copy">
+                  <b>{item.label}</b>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </div>
               </div>
-              <strong>{item.label}</strong>
             </article>
           ))}
         </div>
-        <div className="v2-highlight-notes">
-          {storyHighlights.slice(0, 3).map((item) => (
-            <article key={item.title}>
-              <span>{item.zh}</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </article>
-          ))}
-        </div>
-        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · customer reposts · 客人回圖 · Instagram story highlights · tagged photos · nitro milk tea</p>
+        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · customer reposts · 客人回圖 · Instagram story screenshots · tagged photos · nitro milk tea</p>
       </section>
 
       <footer className="v2-footer">
