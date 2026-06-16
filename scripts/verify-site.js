@@ -58,12 +58,35 @@ const viewports = [
     }
   }
 
+  const zhPage = await browser.newPage({ viewport: viewports[0] });
+  const zhErrors = [];
+  zhPage.on('pageerror', (err) => zhErrors.push(err.message));
+  zhPage.on('console', (msg) => { if (msg.type() === 'error') zhErrors.push(msg.text()); });
+  await zhPage.goto(new URL('?lang=zh', base).toString(), { waitUntil: 'networkidle' });
+  await zhPage.getByRole('heading', { name: '香港菠蘿包 & 氮氣奶茶' }).waitFor({ timeout: 5000 });
+  const zhHero = await zhPage.evaluate(() => ({
+    route: '/?lang=zh',
+    viewport: 'desktop',
+    errors: [],
+    kicker: document.querySelector('.v2-hero .v2-kicker')?.textContent.trim() || '',
+    title: document.querySelector('.v2-hero h1')?.textContent.replace(/\s+/g, ' ').trim() || '',
+    staleCombinedMilkTea: document.body.textContent.includes('香港菠蘿包與奶茶'),
+    staleShortTitle: document.querySelector('.v2-hero h1')?.textContent.includes('菠蘿包 & 氮氣奶茶') && !document.querySelector('.v2-hero h1')?.textContent.includes('香港菠蘿包')
+  }));
+  results.push({ ...zhHero, errors: zhErrors });
+  await zhPage.close();
+
   await browser.close();
   console.log(JSON.stringify(results, null, 2));
 
-  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0);
+  const failures = results.filter((item) => item.errors.length || (
+    item.route === '/?lang=zh'
+      ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || item.staleCombinedMilkTea || item.staleShortTitle)
+      : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
+  ));
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));
     process.exit(1);
   }
 })().catch((err) => { console.error(err); process.exit(1); });
+

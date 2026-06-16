@@ -229,8 +229,8 @@ const copy = {
   zh: {
     nav: { home: '首頁', menu: '餐單', preorder: '預訂', schedule: '時間', about: '關於', faq: 'FAQ', order: '立即預訂', language: '語言' },
     hero: {
-      kicker: '香港菠蘿包與奶茶',
-      title: '菠蘿包 & 氮氣奶茶',
+      kicker: '香港招牌',
+      title: '香港菠蘿包 & 氮氣奶茶',
       text: '以心烘焙，保留香港味道。每日少量製作，主要預訂，walk-in 時段請留意 IG story。',
       primary: '立即預訂',
       menu: '查看餐單',
