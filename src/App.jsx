@@ -50,29 +50,40 @@ const menuProductImages = [
   'reference-product-3.jpg'
 ];
 
-const socialProofCards = [
+const storyHighlights = [
   {
-    title: 'Customer bake photos',
-    zh: '客人回圖',
-    text: 'A place to feature real customer reposts, tagged photos, and Instagram highlight moments after approval.',
-    imageName: 'food-reel-pineapple-bun.jpg'
+    label: 'schedule',
+    title: 'Bake schedule',
+    zh: '出爐時間',
+    text: 'Weekly preorder and walk-in pickup updates for fresh pineapple buns, brioche buns, and limited bakery drops.',
+    imageName: 'reference-story-street.jpg'
   },
   {
+    label: 'best bakery',
     title: 'Best Bakery recognition',
-    zh: 'Best Bakery 2026',
-    text: 'Highlight award or media screenshots as proof points, with source links and approved wording.',
+    zh: 'Best Bakery',
+    text: 'Award and media highlight space for approved Best Bakery screenshots, source links, and press proof.',
     imageName: 'reference-award-full.jpg'
   },
   {
-    title: 'Fresh pineapple bun drops',
-    zh: '菠蘿包出爐動態',
-    text: 'Turn daily bake updates into searchable context for pineapple buns, preorder, pickup, and walk-in availability.',
+    label: '客人回圖',
+    title: 'Customer bake photos',
+    zh: '客人回圖',
+    text: 'A customer repost highlight for tagged photos, story mentions, and real social proof after approval.',
+    imageName: 'food-reel-pineapple-bun.jpg'
+  },
+  {
+    label: '菠蘿包',
+    title: 'Pineapple bun moments',
+    zh: '菠蘿包動態',
+    text: 'Fresh-from-the-oven pineapple bun posts that help people find Hong Kong pineapple buns in Sheung Wan.',
     imageName: 'official-brioche-pineapple-buns.jpg'
   },
   {
+    label: 'milk tea',
     title: 'Nitro milk tea pairings',
-    zh: '氮氣奶茶配搭',
-    text: 'Show drink pairing content so searches around Hong Kong milk tea and pineapple buns connect to the shop.',
+    zh: '氮氣奶茶',
+    text: 'Drink pairing highlights connecting nitro milk tea, Hong Kong milk tea, and signature bakery orders.',
     imageName: 'social-reel-milk-tea.jpg'
   }
 ];
@@ -391,7 +402,7 @@ export default function App() {
       scrollTrigger: { start: 'top 72%' }
     });
 
-    revealSection('.v2-gallery', '.v2-gallery__head > *, .v2-proof-card, .v2-seo-note', {
+    revealSection('.v2-gallery', '.v2-gallery__head > *, .v2-highlight, .v2-highlight-notes article, .v2-seo-note', {
       y: 30,
       stagger: 0.055
     });
@@ -918,19 +929,26 @@ export default function App() {
           <div><h2>{t.galleryTitle}</h2><p>{t.gallerySub}</p></div>
           <a className="v2-button v2-button--outline" href={instagramUrl} target="_blank" rel="noreferrer"><Camera size={17} />{t.instagram}</a>
         </div>
-        <div className="v2-proof-grid">
-          {socialProofCards.map((card) => (
-            <article className="v2-proof-card" key={card.title}>
-              <img src={image(card.imageName)} alt={`${card.title} Instagram highlight placeholder`} />
-              <div>
-                <span>{card.zh}</span>
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
+        <div className="v2-highlight-shelf" aria-label="Instagram story highlights">
+          {storyHighlights.map((item) => (
+            <article className="v2-highlight" key={item.label}>
+              <div className="v2-highlight__bubble">
+                <img src={image(item.imageName)} alt={`${item.title} story highlight cover`} />
               </div>
+              <strong>{item.label}</strong>
             </article>
           ))}
         </div>
-        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · brioche pineapple bun · nitro milk tea · preorder bakery pickup</p>
+        <div className="v2-highlight-notes">
+          {storyHighlights.slice(0, 3).map((item) => (
+            <article key={item.title}>
+              <span>{item.zh}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · brioche pineapple bun · nitro milk tea · preorder bakery pickup · customer reposts · Instagram story highlights</p>
       </section>
 
       <footer className="v2-footer">

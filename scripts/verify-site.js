@@ -39,7 +39,8 @@ const viewports = [
           siteVersion: document.body.dataset.siteVersion,
           metaDescriptionHasKeywords: /pineapple buns|菠蘿包|nitro milk tea|Sheung Wan bakery/i.test(description),
           jsonLdType: jsonLd['@type'],
-          proofCards: document.querySelectorAll('.v2-proof-card').length,
+          storyHighlights: document.querySelectorAll('.v2-highlight').length,
+          highlightNotes: document.querySelectorAll('.v2-highlight-notes article').length,
           oldPhotoStripImages: document.querySelectorAll('.v2-gallery__grid img').length,
           topOrderButtons: document.querySelectorAll('.v2-order').length,
           topOrderBagIcons: [...document.querySelectorAll('.v2-nav__icon')].filter((a) => a.getAttribute('aria-label')?.includes('bag')).length,
@@ -58,7 +59,7 @@ const viewports = [
   await browser.close();
   console.log(JSON.stringify(results, null, 2));
 
-  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.proofCards < 4) || item.oldPhotoStripImages !== 0);
+  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.storyHighlights < 5) || (item.route === '/' && item.highlightNotes < 3) || item.oldPhotoStripImages !== 0);
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));
     process.exit(1);
