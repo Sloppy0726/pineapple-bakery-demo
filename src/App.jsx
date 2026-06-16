@@ -223,6 +223,15 @@ const faqPlaceholders = [
   ['Can I see the weekly schedule?', 'Yes. Use the Schedule page for the placeholder bake calendar and pickup windows.']
 ];
 
+const faqZhPlaceholders = [
+  ['如何落單？', '請透過 Instagram DM 傳送想要的產品、數量、自取日期及聯絡姓名。'],
+  ['可以 walk-in 嗎？', '現貨數量有限，建議到店前先查看 Instagram story 的每日供應情況。'],
+  ['在哪裡自取？', '自取地點為上環店，確實地址及安排會在確認訂單時回覆。'],
+  ['可以大量預訂嗎？', '可以，派對盒、公司茶點或特別批次都可以透過 DM 商量。'],
+  ['這些是最終價錢嗎？', '不是。這是示範版面，最終餐單、價錢、營業時間及政策需待客戶確認。'],
+  ['可以查看每週時間表嗎？', '可以，請到「時間」頁查看示範出爐日程及自取時段。']
+];
+
 const copy = {
   en: {
     nav: { home: 'Home', menu: 'Menu', preorder: 'Preorder', schedule: 'Schedule', about: 'About', faq: 'FAQ', order: 'Order now', language: 'Language' },
@@ -572,7 +581,7 @@ export default function App() {
       },
       about: { primary: '追蹤我們的故事', secondary: '閱讀 FAQ', map: '查看位置' },
       faq: {
-        kicker: 'FAQ',
+        kicker: '常見問題',
         title: '預訂、自取及麵包店常見問題',
         text: '客人 DM 或到店前可先睇快速答案。最終政策文字可待客戶確認後再更新。',
         primary: 'Instagram 查詢',
@@ -914,7 +923,7 @@ export default function App() {
             <p>{pageCopy.faq.sectionText}</p>
           </div>
           <div className="v2-faq-grid">
-            {faqPlaceholders.map(([question, answer], index) => (
+            {(language === 'zh' ? faqZhPlaceholders : faqPlaceholders).map(([question, answer], index) => (
               <article className="v2-faq-card" key={question}>
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <h3>{question}</h3>

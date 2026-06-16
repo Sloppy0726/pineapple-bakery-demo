@@ -118,7 +118,8 @@ const viewports = [
       errors: [],
       title: document.querySelector('.v2-menu-hero h1')?.textContent.replace(/\s+/g, ' ').trim() || '',
       navLinks: [...document.querySelectorAll('.v2-nav__links a')].filter((a) => getComputedStyle(a).display !== 'none').map((a) => a.textContent.trim()),
-      hasEnglishFaqTitle: document.body.textContent.includes('Ordering, pickup, and bakery questions.'),
+      faqQuestions: [...document.querySelectorAll('.v2-faq-card h3')].map((el) => el.textContent.trim()),
+      hasEnglishFaqTitle: document.body.textContent.includes('Ordering, pickup, and bakery questions.') || document.body.textContent.includes('How do I order?') || document.body.textContent.includes('Can I walk in?'),
       hasEnglishMenuTitle: document.body.textContent.includes('Menu placeholders for every future product.') || document.body.textContent.includes('Tap for details') || document.body.textContent.includes('Product details'),
       hasEnglishScheduleTitle: document.body.textContent.includes('Weekly schedule placeholders for pickup and walk-ins.') || document.body.textContent.includes('This week at the bakery') || document.body.textContent.includes('Draft schedule layout') || document.body.textContent.includes('Time placeholder')
     }));
@@ -133,7 +134,7 @@ const viewports = [
     item.route === '/?lang=zh'
       ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.navFontSize < 11 || item.navLetterSpacing > 0.25 || !item.navBox || !item.actionsBox || item.navBox.right > item.actionsBox.left - 6 || item.horizontalOverflow || item.staleCombinedMilkTea || item.staleShortTitle)
       : item.route?.endsWith('/?lang=zh')
-        ? (item.title !== item.expectedTitle || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.hasEnglishFaqTitle || item.hasEnglishMenuTitle || item.hasEnglishScheduleTitle)
+        ? (item.title !== item.expectedTitle || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.hasEnglishFaqTitle || item.hasEnglishMenuTitle || item.hasEnglishScheduleTitle || (item.route === 'faq/?lang=zh' && (!item.faqQuestions?.includes('如何落單？') || !item.faqQuestions?.includes('可以 walk-in 嗎？'))))
         : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
   ));
   if (failures.length) {

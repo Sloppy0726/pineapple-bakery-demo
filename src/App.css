@@ -1019,13 +1019,13 @@ body[data-site-version='current'] {
   .v2-brand strong { font-size: .92rem; }
   .v2-brand small { font-size: .72rem; }
   .v2-doodle-logo { width: 46px; height: 46px; }
-  .v2-nav__actions { grid-column: 1; grid-row: 2; justify-self: end; align-self: center; justify-content: flex-end; gap: 8px; }
-  .v2-nav__icon { width: 24px; height: 34px; }
-  .v2-lang { padding: 3px; }
-  .v2-lang button { width: 32px; height: 28px; }
+  .v2-nav__actions { grid-column: 1; grid-row: 2; justify-self: end; align-self: center; justify-content: flex-end; gap: 6px; }
+  .v2-nav__icon { width: 22px; height: 34px; }
+  .v2-lang { padding: 2px; gap: 2px; }
+  .v2-lang button { width: 30px; height: 27px; }
   .v2-order { display: none; }
-  .v2-nav__links { grid-column: 1; grid-row: 2; overflow-x: auto; width: calc(100% - 106px); padding: 0 0 4px; flex-wrap: nowrap; gap: 0 18px; }
-  .v2-site--zh .v2-nav__links { width: calc(100% - 126px); justify-content: flex-start; gap: 0 10px; font-size: .78rem; letter-spacing: .025em; }
+  .v2-nav__links { grid-column: 1; grid-row: 2; overflow-x: auto; width: calc(100% - 96px); padding: 0 0 4px; flex-wrap: nowrap; gap: 0 18px; }
+  .v2-site--zh .v2-nav__links { width: calc(100% - 108px); justify-content: flex-start; gap: 0 11px; font-size: .8rem; letter-spacing: .018em; }
   .v2-hero {
     min-height: 0;
     background:
@@ -1062,8 +1062,8 @@ body[data-site-version='current'] {
 @media (max-width: 480px) {
   .v2-nav { grid-template-columns: 1fr; }
   .v2-nav__actions { justify-self: end; justify-content: flex-end; }
-  .v2-nav__links { width: calc(100% - 104px); gap: 0 10px; font-size: .66rem; letter-spacing: .045em; }
-  .v2-site--zh .v2-nav__links { width: calc(100% - 126px); gap: 0 8px; font-size: .72rem; letter-spacing: .015em; justify-content: flex-start; }
+  .v2-nav__links { width: calc(100% - 96px); gap: 0 10px; font-size: .66rem; letter-spacing: .045em; }
+  .v2-site--zh .v2-nav__links { width: calc(100% - 108px); gap: 0 8px; font-size: .72rem; letter-spacing: .01em; justify-content: flex-start; }
   .v2-feature-row, .v2-product-strip, .v2-footer__features, .v2-menu-grid { grid-template-columns: 1fr; }
   .v2-hero__drink { width: 120px; height: 160px; }
 }
