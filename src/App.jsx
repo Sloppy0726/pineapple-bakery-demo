@@ -9,8 +9,13 @@ import {
   Clock3,
   Heart,
   Languages,
+  MessageCircle,
+  Minus,
   Package,
+  Plus,
   ShoppingBag,
+  ShoppingCart,
+  Trash2,
   Wheat,
   X
 } from 'lucide-react';
@@ -21,6 +26,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const assetBase = import.meta.env.BASE_URL;
 const instagramUrl = 'https://www.instagram.com/pineapplebakeryhk/';
 const instagramDmUrl = 'https://ig.me/m/pineapplebakeryhk';
+const whatsappShareBaseUrl = 'https://wa.me/';
 const openRiceUrl = 'https://www.openrice.com/en/hongkong/r-pineapple-bakery-sheung-wan-hong-kong-style-bakery-r998564';
 const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Shop%202%2C%20G%2FF%2C%2087%20Wing%20Lok%20Street%2C%20Sheung%20Wan%2C%20Hong%20Kong';
 const storageKey = 'pineapple-bakery-language';
@@ -356,6 +362,47 @@ function getInitialLanguage() {
     .some((lang) => lang.toLowerCase().startsWith('zh')) ? 'zh' : 'en';
 }
 
+function buildMenuProduct(index, language) {
+  const [name, chinese, text] = menuPlaceholders[index];
+  const details = language === 'zh' ? menuProductZhDetails[index] : menuProductDetails[index];
+  return {
+    id: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+    name,
+    chinese,
+    text: language === 'zh' ? menuProductZhDescriptions[index] : text,
+    imageName: menuProductImages[index],
+    ...details
+  };
+}
+
+function getProductLabel(product, language) {
+  return language === 'zh' ? `${product.chinese} (${product.name})` : `${product.name} (${product.chinese})`;
+}
+
+function buildWhatsappCartUrl(cartItems, language) {
+  const lines = cartItems.map(({ product, quantity }, index) => `${index + 1}. ${getProductLabel(product, language)} x ${quantity}`);
+  const message = language === 'zh'
+    ? [
+        '你好 Pineapple Bakery，我想查詢／預訂以下產品：',
+        '',
+        ...lines,
+        '',
+        '自取日期／時間：',
+        '姓名：',
+        '備註：'
+      ].join('\n')
+    : [
+        'Hello Pineapple Bakery, I would like to enquire/order these items:',
+        '',
+        ...lines,
+        '',
+        'Pickup date/time:',
+        'Name:',
+        'Notes:'
+      ].join('\n');
+  return `${whatsappShareBaseUrl}?text=${encodeURIComponent(message)}`;
+}
+
 function HeaderInstagramIcon(props) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
@@ -397,6 +444,7 @@ export default function App() {
   const rootRef = useRef(null);
   const [language, setLanguage] = useState(getInitialLanguage);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
   const t = copy[language];
 
   useEffect(() => {
@@ -533,6 +581,48 @@ export default function App() {
   const currentPage = isMenuPage ? 'menu' : isSchedulePage ? 'schedule' : isAboutPage ? 'about' : isFaqPage ? 'faq' : 'home';
   const navState = (page) => page === currentPage ? { className: 'is-active', 'aria-current': 'page' } : {};
   const siteClass = (...classes) => ['v2-site', language === 'zh' ? 'v2-site--zh' : '', ...classes].filter(Boolean).join(' ');
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartWhatsappUrl = buildWhatsappCartUrl(cartItems, language);
+  const addToCart = (product) => {
+    setCartItems((items) => {
+      const existing = items.find((item) => item.product.id === product.id);
+      if (existing) return items.map((item) => item.product.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+      return [...items, { product, quantity: 1 }];
+    });
+  };
+  const changeCartQuantity = (productId, delta) => {
+    setCartItems((items) => items
+      .map((item) => item.product.id === productId ? { ...item, quantity: item.quantity + delta } : item)
+      .filter((item) => item.quantity > 0));
+  };
+  const removeFromCart = (productId) => setCartItems((items) => items.filter((item) => item.product.id !== productId));
+  const cartCopy = language === 'zh'
+    ? {
+        title: 'Shopping Cart',
+        subtitle: '先加入想要的產品，再一鍵匯出成 WhatsApp 訊息。暫時不會網上付款或直接落單。',
+        empty: '購物車暫時未有產品。請在產品卡按「加入購物車」。',
+        add: '加入購物車',
+        added: '已加入',
+        send: 'Send to WhatsApp',
+        clear: '清空',
+        qty: '數量',
+        remove: '移除',
+        itemCount: `${cartCount} 件產品`,
+        disabled: '請先加入產品'
+      }
+    : {
+        title: 'Shopping Cart',
+        subtitle: 'Add products first, then export the cart into a ready WhatsApp message. No online payment or live ordering yet.',
+        empty: 'Your cart is empty. Tap “Add to cart” on any product card.',
+        add: 'Add to cart',
+        added: 'Added',
+        send: 'Send to WhatsApp',
+        clear: 'Clear',
+        qty: 'Qty',
+        remove: 'Remove',
+        itemCount: `${cartCount} item${cartCount === 1 ? '' : 's'}`,
+        disabled: 'Add products first'
+      };
   const pageCopy = {
     en: {
       menu: {
@@ -622,7 +712,7 @@ export default function App() {
           <h1>{pageCopy.menu.title}</h1>
           <p>{pageCopy.menu.text}</p>
           <div className="v2-actions">
-            <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">{pageCopy.menu.primary}<ArrowRight size={16} /></a>
+            <a className="v2-button v2-button--primary" href="#shopping-cart">{pageCopy.menu.primary}<ShoppingCart size={16} /></a>
             <a className="v2-button" href={homeUrl}>{pageCopy.menu.secondary}</a>
           </div>
         </section>
@@ -633,34 +723,68 @@ export default function App() {
             <p>{pageCopy.menu.sectionText}</p>
           </div>
           <div className="v2-menu-grid">
-            {menuPlaceholders.map(([name, chinese, text], index) => {
-              const details = language === 'zh' ? menuProductZhDetails[index] : menuProductDetails[index];
-              const product = {
-                name,
-                chinese,
-                text: language === 'zh' ? menuProductZhDescriptions[index] : text,
-                imageName: menuProductImages[index],
-                ...details
-              };
-              const displayName = language === 'zh' ? chinese : name;
-              const secondaryName = language === 'zh' ? name : chinese;
+            {menuPlaceholders.map((_, index) => {
+              const product = buildMenuProduct(index, language);
+              const displayName = language === 'zh' ? product.chinese : product.name;
+              const secondaryName = language === 'zh' ? product.name : product.chinese;
+              const inCart = cartItems.some((item) => item.product.id === product.id);
               return (
-                <button
-                  className="v2-menu-card"
-                  type="button"
-                  key={name}
-                  aria-label={language === 'zh' ? `查看${chinese}詳情` : `View details for ${name}`}
-                  onClick={() => setSelectedProduct(product)}
-                >
-                  <img src={image(product.imageName)} alt={`${displayName} product thumbnail`} />
-                  <span>{language === 'zh' ? '產品' : 'Item'} {String(index + 1).padStart(2, '0')}</span>
-                  <h3>{displayName}</h3>
-                  <p className="v2-menu-card__zh">{secondaryName}</p>
-                  <p>{product.text}</p>
-                  <em>{language === 'zh' ? '點擊查看詳情' : 'Tap for details'}</em>
-                </button>
+                <article className="v2-menu-card" key={product.id}>
+                  <button
+                    className="v2-menu-card__detail"
+                    type="button"
+                    aria-label={language === 'zh' ? `查看${product.chinese}詳情` : `View details for ${product.name}`}
+                    onClick={() => setSelectedProduct(product)}
+                  >
+                    <img src={image(product.imageName)} alt={`${displayName} product thumbnail`} />
+                    <span>{language === 'zh' ? '產品' : 'Item'} {String(index + 1).padStart(2, '0')}</span>
+                    <h3>{displayName}</h3>
+                    <p className="v2-menu-card__zh">{secondaryName}</p>
+                    <p>{product.text}</p>
+                    <em>{language === 'zh' ? '點擊查看詳情' : 'Tap for details'}</em>
+                  </button>
+                  <button className="v2-cart-add" type="button" onClick={() => addToCart(product)}>
+                    <Plus size={16} /> {inCart ? cartCopy.added : cartCopy.add}
+                  </button>
+                </article>
               );
             })}
+          </div>
+        </section>
+
+        <section className="v2-cart-panel" id="shopping-cart" aria-label="Shopping cart export to WhatsApp">
+          <div className="v2-cart-panel__head">
+            <div>
+              <p className="v2-kicker">{language === 'zh' ? '匯出到 WhatsApp' : 'Export to WhatsApp'}</p>
+              <h2>{cartCopy.title}</h2>
+              <p>{cartCopy.subtitle}</p>
+            </div>
+            <strong>{cartCopy.itemCount}</strong>
+          </div>
+          {cartItems.length ? (
+            <div className="v2-cart-list">
+              {cartItems.map(({ product, quantity }) => (
+                <article className="v2-cart-item" key={product.id}>
+                  <img src={image(product.imageName)} alt="" />
+                  <div>
+                    <h3>{language === 'zh' ? product.chinese : product.name}</h3>
+                    <p>{language === 'zh' ? product.name : product.chinese}</p>
+                  </div>
+                  <div className="v2-cart-qty" aria-label={`${cartCopy.qty}: ${quantity}`}>
+                    <button type="button" onClick={() => changeCartQuantity(product.id, -1)} aria-label={`Decrease ${product.name}`}><Minus size={15} /></button>
+                    <span>{quantity}</span>
+                    <button type="button" onClick={() => changeCartQuantity(product.id, 1)} aria-label={`Increase ${product.name}`}><Plus size={15} /></button>
+                  </div>
+                  <button className="v2-cart-remove" type="button" onClick={() => removeFromCart(product.id)} aria-label={`${cartCopy.remove} ${product.name}`}><Trash2 size={17} /></button>
+                </article>
+              ))}
+            </div>
+          ) : <p className="v2-cart-empty">{cartCopy.empty}</p>}
+          <div className="v2-cart-actions">
+            <a className={`v2-button v2-button--primary ${cartItems.length ? '' : 'is-disabled'}`} href={cartItems.length ? cartWhatsappUrl : undefined} target="_blank" rel="noreferrer" aria-disabled={!cartItems.length}>
+              <MessageCircle size={17} /> {cartItems.length ? cartCopy.send : cartCopy.disabled}
+            </a>
+            {cartItems.length > 0 && <button className="v2-button v2-button--outline" type="button" onClick={() => setCartItems([])}>{cartCopy.clear}</button>}
           </div>
         </section>
 
@@ -684,7 +808,7 @@ export default function App() {
                 <ul>
                   {selectedProduct.ingredients.map((ingredient) => <li key={ingredient}>{ingredient}</li>)}
                 </ul>
-                <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">{language === 'zh' ? '查詢此產品' : 'Ask about this item'}<ArrowRight size={16} /></a>
+                <button className="v2-button v2-button--primary" type="button" onClick={() => addToCart(selectedProduct)}><Plus size={16} />{language === 'zh' ? '加入購物車' : 'Add to cart'}</button>
               </div>
             </article>
           </div>
@@ -706,7 +830,7 @@ export default function App() {
           <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
         </footer>
 
-        <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>
+        <a className="v2-float" href="#shopping-cart" aria-label="Open shopping cart"><ShoppingCart size={19} /> {cartCount ? `${cartCopy.title} · ${cartCount}` : cartCopy.title}</a>
       </main>
     );
   }
