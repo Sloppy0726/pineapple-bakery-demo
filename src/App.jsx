@@ -470,6 +470,7 @@ export default function App() {
   const isFaqPage = currentPath.endsWith('/faq');
   const currentPage = isMenuPage ? 'menu' : isSchedulePage ? 'schedule' : isAboutPage ? 'about' : isFaqPage ? 'faq' : 'home';
   const navState = (page) => page === currentPage ? { className: 'is-active', 'aria-current': 'page' } : {};
+  const siteClass = (...classes) => ['v2-site', language === 'zh' ? 'v2-site--zh' : '', ...classes].filter(Boolean).join(' ');
   const pageCopy = {
     en: {
       menu: {
@@ -531,7 +532,7 @@ export default function App() {
 
   if (isMenuPage) {
     return (
-      <main className="v2-site v2-menu-page" ref={rootRef}>
+      <main className={siteClass('v2-menu-page')} ref={rootRef}>
         <nav className="v2-nav" aria-label="Version 2 navigation">
           <a className="v2-brand" href={homeUrl} aria-label="Pineapple Bakery home">
             <DoodleLogo />
@@ -641,7 +642,7 @@ export default function App() {
 
   if (isSchedulePage) {
     return (
-      <main className="v2-site v2-schedule-page" ref={rootRef}>
+      <main className={siteClass('v2-schedule-page')} ref={rootRef}>
         <nav className="v2-nav" aria-label="Version 2 navigation">
           <a className="v2-brand" href={homeUrl} aria-label="Pineapple Bakery home">
             <DoodleLogo />
@@ -736,7 +737,7 @@ export default function App() {
 
   if (isAboutPage) {
     return (
-      <main className="v2-site v2-menu-page v2-about-page" ref={rootRef}>
+      <main className={siteClass('v2-menu-page', 'v2-about-page')} ref={rootRef}>
         <nav className="v2-nav" aria-label="Version 2 navigation">
           <a className="v2-brand" href={homeUrl} aria-label="Pineapple Bakery home">
             <DoodleLogo />
@@ -812,7 +813,7 @@ export default function App() {
 
   if (isFaqPage) {
     return (
-      <main className="v2-site v2-menu-page v2-faq-page" ref={rootRef}>
+      <main className={siteClass('v2-menu-page', 'v2-faq-page')} ref={rootRef}>
         <nav className="v2-nav" aria-label="Version 2 navigation">
           <a className="v2-brand" href={homeUrl} aria-label="Pineapple Bakery home">
             <DoodleLogo />
@@ -883,7 +884,7 @@ export default function App() {
   }
 
   return (
-    <main className="v2-site" ref={rootRef}>
+    <main className={siteClass()} ref={rootRef}>
       <nav className="v2-nav" aria-label="Version 2 navigation">
         <a className="v2-brand" href={homeAnchor('#v2-top')} aria-label="Pineapple Bakery home">
           <DoodleLogo />

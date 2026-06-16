@@ -76,16 +76,24 @@ const viewports = [
   zhPage.on('console', (msg) => { if (msg.type() === 'error') zhErrors.push(msg.text()); });
   await zhPage.goto(new URL('?lang=zh', base).toString(), { waitUntil: 'networkidle' });
   await zhPage.getByRole('heading', { name: '香港菠蘿包 & 氮氣奶茶' }).waitFor({ timeout: 5000 });
-  const zhHero = await zhPage.evaluate(() => ({
-    route: '/?lang=zh',
-    viewport: 'mobile',
-    errors: [],
-    navLinks: [...document.querySelectorAll('.v2-nav__links a')].filter((a) => getComputedStyle(a).display !== 'none').map((a) => a.textContent.trim()),
-    kicker: document.querySelector('.v2-hero .v2-kicker')?.textContent.trim() || '',
-    title: document.querySelector('.v2-hero h1')?.textContent.replace(/\s+/g, ' ').trim() || '',
-    staleCombinedMilkTea: document.body.textContent.includes('香港菠蘿包與奶茶'),
-    staleShortTitle: document.querySelector('.v2-hero h1')?.textContent.includes('菠蘿包 & 氮氣奶茶') && !document.querySelector('.v2-hero h1')?.textContent.includes('香港菠蘿包')
-  }));
+  const zhHero = await zhPage.evaluate(() => {
+    const nav = document.querySelector('.v2-nav__links');
+    const navStyle = getComputedStyle(nav);
+    return {
+      route: '/?lang=zh',
+      viewport: 'mobile',
+      errors: [],
+      navLinks: [...document.querySelectorAll('.v2-nav__links a')].filter((a) => getComputedStyle(a).display !== 'none').map((a) => a.textContent.trim()),
+      navFontSize: Number.parseFloat(navStyle.fontSize),
+      navLetterSpacing: Number.parseFloat(navStyle.letterSpacing),
+      navJustifyContent: navStyle.justifyContent,
+      horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
+      kicker: document.querySelector('.v2-hero .v2-kicker')?.textContent.trim() || '',
+      title: document.querySelector('.v2-hero h1')?.textContent.replace(/\s+/g, ' ').trim() || '',
+      staleCombinedMilkTea: document.body.textContent.includes('香港菠蘿包與奶茶'),
+      staleShortTitle: document.querySelector('.v2-hero h1')?.textContent.includes('菠蘿包 & 氮氣奶茶') && !document.querySelector('.v2-hero h1')?.textContent.includes('香港菠蘿包')
+    };
+  });
   results.push({ ...zhHero, errors: zhErrors });
   await zhPage.close();
 
@@ -121,7 +129,7 @@ const viewports = [
 
   const failures = results.filter((item) => item.errors.length || (
     item.route === '/?lang=zh'
-      ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.staleCombinedMilkTea || item.staleShortTitle)
+      ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.navFontSize < 11.5 || item.navLetterSpacing < 1.1 || item.navJustifyContent !== 'space-between' || item.horizontalOverflow || item.staleCombinedMilkTea || item.staleShortTitle)
       : item.route?.endsWith('/?lang=zh')
         ? (item.title !== item.expectedTitle || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.hasEnglishFaqTitle || item.hasEnglishMenuTitle || item.hasEnglishScheduleTitle)
         : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
