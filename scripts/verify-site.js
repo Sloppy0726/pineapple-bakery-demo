@@ -89,13 +89,42 @@ const viewports = [
   results.push({ ...zhHero, errors: zhErrors });
   await zhPage.close();
 
+  const zhPageRoutes = [
+    { path: 'menu/?lang=zh', title: '未來產品餐單預覽' },
+    { path: 'schedule/?lang=zh', title: '每週自取及 walk-in 時間預覽' },
+    { path: 'about/?lang=zh', title: '用心烘焙，每一口都是香港味。' },
+    { path: 'faq/?lang=zh', title: '預訂、自取及麵包店常見問題' }
+  ];
+  for (const route of zhPageRoutes) {
+    const page = await browser.newPage({ viewport: viewports[1] });
+    const errors = [];
+    page.on('pageerror', (err) => errors.push(err.message));
+    page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
+    await page.goto(new URL(route.path, base).toString(), { waitUntil: 'networkidle' });
+    await page.getByRole('heading', { name: route.title }).first().waitFor({ timeout: 5000 });
+    const result = await page.evaluate(() => ({
+      route: window.location.pathname.split('/').filter(Boolean).pop() + '/?lang=zh',
+      viewport: 'mobile',
+      errors: [],
+      title: document.querySelector('.v2-menu-hero h1')?.textContent.replace(/\s+/g, ' ').trim() || '',
+      navLinks: [...document.querySelectorAll('.v2-nav__links a')].filter((a) => getComputedStyle(a).display !== 'none').map((a) => a.textContent.trim()),
+      hasEnglishFaqTitle: document.body.textContent.includes('Ordering, pickup, and bakery questions.'),
+      hasEnglishMenuTitle: document.body.textContent.includes('Menu placeholders for every future product.'),
+      hasEnglishScheduleTitle: document.body.textContent.includes('Weekly schedule placeholders for pickup and walk-ins.')
+    }));
+    results.push({ ...result, expectedTitle: route.title, errors });
+    await page.close();
+  }
+
   await browser.close();
   console.log(JSON.stringify(results, null, 2));
 
   const failures = results.filter((item) => item.errors.length || (
     item.route === '/?lang=zh'
       ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.staleCombinedMilkTea || item.staleShortTitle)
-      : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
+      : item.route?.endsWith('/?lang=zh')
+        ? (item.title !== item.expectedTitle || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.hasEnglishFaqTitle || item.hasEnglishMenuTitle || item.hasEnglishScheduleTitle)
+        : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
   ));
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));

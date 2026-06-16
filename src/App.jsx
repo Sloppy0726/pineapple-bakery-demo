@@ -470,6 +470,64 @@ export default function App() {
   const isFaqPage = currentPath.endsWith('/faq');
   const currentPage = isMenuPage ? 'menu' : isSchedulePage ? 'schedule' : isAboutPage ? 'about' : isFaqPage ? 'faq' : 'home';
   const navState = (page) => page === currentPage ? { className: 'is-active', 'aria-current': 'page' } : {};
+  const pageCopy = {
+    en: {
+      menu: {
+        kicker: 'Full catalogue',
+        title: 'Menu placeholders for every future product.',
+        text: 'We’ll replace these placeholder cards once the final product list, prices, descriptions, and photos are confirmed.',
+        primary: 'Preorder enquiry',
+        secondary: 'Back to homepage',
+        sectionTitle: 'Product showcase',
+        sectionText: 'Placeholder catalogue — final product list coming next.'
+      },
+      schedule: {
+        kicker: 'Bake schedule',
+        title: 'Weekly schedule placeholders for pickup and walk-ins.',
+        text: 'Customers can check this page before visiting. The current cards are placeholders until the real weekly baking calendar, preorder cut-off times, and walk-in windows are confirmed.',
+        primary: 'Latest IG updates',
+        secondary: 'View menu'
+      },
+      about: { primary: 'Follow our story', secondary: 'Read FAQ', map: 'Find us' },
+      faq: {
+        kicker: 'FAQ',
+        title: 'Ordering, pickup, and bakery questions.',
+        text: 'Quick answers for customers before they send a DM or visit the shop. Final policy wording can be updated after client approval.',
+        primary: 'Ask on Instagram',
+        secondary: 'Check schedule',
+        sectionTitle: 'Frequently asked',
+        sectionText: 'Dedicated FAQ page — replace placeholder policies with confirmed bakery details before launch.'
+      }
+    },
+    zh: {
+      menu: {
+        kicker: '完整餐單',
+        title: '未來產品餐單預覽',
+        text: '正式產品、價錢、介紹及相片確認後，會替換現有示範卡片。',
+        primary: '查詢預訂',
+        secondary: '返回首頁',
+        sectionTitle: '產品展示',
+        sectionText: '示範餐單 — 最終產品列表稍後更新。'
+      },
+      schedule: {
+        kicker: '出爐時間',
+        title: '每週自取及 walk-in 時間預覽',
+        text: '客人到店前可先查看此頁。現有卡片為示範內容，之後會更新真實每週出爐日程、預訂截止時間及 walk-in 時段。',
+        primary: '最新 IG 更新',
+        secondary: '查看餐單'
+      },
+      about: { primary: '追蹤我們的故事', secondary: '閱讀 FAQ', map: '查看位置' },
+      faq: {
+        kicker: 'FAQ',
+        title: '預訂、自取及麵包店常見問題',
+        text: '客人 DM 或到店前可先睇快速答案。最終政策文字可待客戶確認後再更新。',
+        primary: 'Instagram 查詢',
+        secondary: '查看時間',
+        sectionTitle: '常見問題',
+        sectionText: '獨立 FAQ 頁面 — 正式推出前請用已確認的店舖政策替換示範文字。'
+      }
+    }
+  }[language];
 
   if (isMenuPage) {
     return (
@@ -497,19 +555,19 @@ export default function App() {
         </nav>
 
         <section className="v2-menu-hero">
-          <p className="v2-kicker">Full catalogue</p>
-          <h1>Menu placeholders for every future product.</h1>
-          <p>We’ll replace these placeholder cards once the final product list, prices, descriptions, and photos are confirmed.</p>
+          <p className="v2-kicker">{pageCopy.menu.kicker}</p>
+          <h1>{pageCopy.menu.title}</h1>
+          <p>{pageCopy.menu.text}</p>
           <div className="v2-actions">
-            <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">Preorder enquiry<ArrowRight size={16} /></a>
-            <a className="v2-button" href={homeUrl}>Back to homepage</a>
+            <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">{pageCopy.menu.primary}<ArrowRight size={16} /></a>
+            <a className="v2-button" href={homeUrl}>{pageCopy.menu.secondary}</a>
           </div>
         </section>
 
         <section className="v2-menu-catalog" aria-label="Product placeholder catalogue">
           <div className="v2-menu-catalog__head">
-            <h2>Product showcase</h2>
-            <p>Placeholder catalogue — final product list coming next.</p>
+            <h2>{pageCopy.menu.sectionTitle}</h2>
+            <p>{pageCopy.menu.sectionText}</p>
           </div>
           <div className="v2-menu-grid">
             {menuPlaceholders.map(([name, chinese, text], index) => {
@@ -607,12 +665,12 @@ export default function App() {
         </nav>
 
         <section className="v2-menu-hero v2-schedule-hero">
-          <p className="v2-kicker">Bake schedule</p>
-          <h1>Weekly schedule placeholders for pickup and walk-ins.</h1>
-          <p>Customers can check this page before visiting. The current cards are placeholders until the real weekly baking calendar, preorder cut-off times, and walk-in windows are confirmed.</p>
+          <p className="v2-kicker">{pageCopy.schedule.kicker}</p>
+          <h1>{pageCopy.schedule.title}</h1>
+          <p>{pageCopy.schedule.text}</p>
           <div className="v2-actions">
-            <a className="v2-button v2-button--primary" href={instagramUrl} target="_blank" rel="noreferrer">Latest IG updates<ArrowRight size={16} /></a>
-            <a className="v2-button" href={menuUrl}>View menu</a>
+            <a className="v2-button v2-button--primary" href={instagramUrl} target="_blank" rel="noreferrer">{pageCopy.schedule.primary}<ArrowRight size={16} /></a>
+            <a className="v2-button" href={menuUrl}>{pageCopy.schedule.secondary}</a>
           </div>
         </section>
 
@@ -706,8 +764,8 @@ export default function App() {
           <h1>{t.story.title}</h1>
           <p>{t.story.body}</p>
           <div className="v2-actions">
-            <a className="v2-button v2-button--primary" href={instagramUrl} target="_blank" rel="noreferrer">Follow our story<ArrowRight size={16} /></a>
-            <a className="v2-button" href={faqUrl}>Read FAQ</a>
+            <a className="v2-button v2-button--primary" href={instagramUrl} target="_blank" rel="noreferrer">{pageCopy.about.primary}<ArrowRight size={16} /></a>
+            <a className="v2-button" href={faqUrl}>{pageCopy.about.secondary}</a>
           </div>
         </section>
 
@@ -726,7 +784,7 @@ export default function App() {
             <em>{t.story.label}</em>
             <h2>{t.story.title}</h2>
             <p>{t.story.body}</p>
-            <a href={mapsUrl} target="_blank" rel="noreferrer">Find us<ArrowRight size={15} /></a>
+            <a href={mapsUrl} target="_blank" rel="noreferrer">{pageCopy.about.map}<ArrowRight size={15} /></a>
           </article>
           <img className="v2-shop-photo" src={image('reference-shopfront-full.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
         </section>
@@ -778,19 +836,19 @@ export default function App() {
         </nav>
 
         <section className="v2-menu-hero v2-faq-hero">
-          <p className="v2-kicker">FAQ</p>
-          <h1>Ordering, pickup, and bakery questions.</h1>
-          <p>Quick answers for customers before they send a DM or visit the shop. Final policy wording can be updated after client approval.</p>
+          <p className="v2-kicker">{pageCopy.faq.kicker}</p>
+          <h1>{pageCopy.faq.title}</h1>
+          <p>{pageCopy.faq.text}</p>
           <div className="v2-actions">
-            <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">Ask on Instagram<ArrowRight size={16} /></a>
-            <a className="v2-button" href={scheduleUrl}>Check schedule</a>
+            <a className="v2-button v2-button--primary" href={instagramDmUrl} target="_blank" rel="noreferrer">{pageCopy.faq.primary}<ArrowRight size={16} /></a>
+            <a className="v2-button" href={scheduleUrl}>{pageCopy.faq.secondary}</a>
           </div>
         </section>
 
         <section className="v2-faq-board" aria-label="Frequently asked questions">
           <div className="v2-menu-catalog__head">
-            <h2>Frequently asked</h2>
-            <p>Dedicated FAQ page — replace placeholder policies with confirmed bakery details before launch.</p>
+            <h2>{pageCopy.faq.sectionTitle}</h2>
+            <p>{pageCopy.faq.sectionText}</p>
           </div>
           <div className="v2-faq-grid">
             {faqPlaceholders.map(([question, answer], index) => (
