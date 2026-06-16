@@ -49,7 +49,7 @@ const viewports = [
           navLinks,
           navFontSize: Number.parseFloat(getComputedStyle(document.querySelector('.v2-nav__links')).fontSize),
           pageHeroTitleStyle: (() => {
-            const heroTitle = document.querySelector('.v2-menu-hero h1');
+            const heroTitle = document.querySelector('.v2-menu-hero h1, .v2-hero h1');
             if (!heroTitle) return null;
             const style = getComputedStyle(heroTitle);
             return {
