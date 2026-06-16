@@ -52,39 +52,39 @@ const menuProductImages = [
 
 const storyHighlights = [
   {
-    label: 'schedule',
-    title: 'Bake schedule',
-    zh: '出爐時間',
-    text: 'Weekly preorder and walk-in pickup updates for fresh pineapple buns, brioche buns, and limited bakery drops.',
-    imageName: 'reference-story-street.jpg'
-  },
-  {
-    label: 'best bakery',
-    title: 'Best Bakery recognition',
-    zh: 'Best Bakery',
-    text: 'Award and media highlight space for approved Best Bakery screenshots, source links, and press proof.',
-    imageName: 'reference-award-full.jpg'
-  },
-  {
-    label: '客人回圖',
-    title: 'Customer bake photos',
+    label: 'friends 28',
+    title: 'Customer reposts',
     zh: '客人回圖',
-    text: 'A customer repost highlight for tagged photos, story mentions, and real social proof after approval.',
+    text: 'A showcase space for approved Instagram story reposts from customers enjoying pineapple buns and bakery pickups.',
     imageName: 'food-reel-pineapple-bun.jpg'
   },
   {
-    label: '菠蘿包',
-    title: 'Pineapple bun moments',
-    zh: '菠蘿包動態',
-    text: 'Fresh-from-the-oven pineapple bun posts that help people find Hong Kong pineapple buns in Sheung Wan.',
-    imageName: 'official-brioche-pineapple-buns.jpg'
+    label: 'friends 27',
+    title: 'Tagged customer photos',
+    zh: '標記回圖',
+    text: 'Saved highlight-style moments for customer tagged photos, social mentions, and real community proof.',
+    imageName: 'social-reel-bun-closeup.jpg'
   },
   {
-    label: 'milk tea',
-    title: 'Nitro milk tea pairings',
-    zh: '氮氣奶茶',
-    text: 'Drink pairing highlights connecting nitro milk tea, Hong Kong milk tea, and signature bakery orders.',
-    imageName: 'social-reel-milk-tea.jpg'
+    label: 'repost',
+    title: 'Story repost showcase',
+    zh: '限時動態轉發',
+    text: 'A dedicated customer repost highlight so visitors can quickly see real bakery reactions from Instagram.',
+    imageName: 'reference-product-1.jpg'
+  },
+  {
+    label: '客人回圖',
+    title: 'Customer photo wall',
+    zh: '客人相片牆',
+    text: 'Customer-generated photos can be dropped here once screenshots and permission are approved.',
+    imageName: 'reference-product-2.jpg'
+  },
+  {
+    label: 'tagged',
+    title: 'Tagged on Instagram',
+    zh: 'IG 標記',
+    text: 'A social proof carousel for tagged posts, reposts, and community word-of-mouth around Pineapple Bakery.',
+    imageName: 'reference-product-3.jpg'
   }
 ];
 
@@ -219,7 +219,7 @@ const copy = {
       cta: 'About us'
     },
     galleryTitle: 'Instagram highlights & customer proof',
-    gallerySub: 'Customer reposts, Best Bakery moments, fresh bun drops, and social proof from @pineapplebakeryhk.',
+    gallerySub: 'A showcase of customer reposts, tagged photos, and story highlights from @pineapplebakeryhk.',
     instagram: 'See Instagram highlights',
     footer: ['Quality ingredients', 'Baked fresh', 'Made with heart', 'Preorder preferred'],
     footerSmall: ['Chosen with care', 'In small batches', 'For our community', 'Less waste, more care'],
@@ -274,7 +274,7 @@ const copy = {
       cta: '關於我們'
     },
     galleryTitle: 'Instagram 精選與客人回圖',
-    gallerySub: '整合客人回圖、Best Bakery、出爐動態及 @pineapplebakeryhk 社交證明。',
+    gallerySub: '整合 @pineapplebakeryhk 的客人回圖、標記相片及限時動態轉發。',
     instagram: '查看 Instagram 精選',
     footer: ['優質材料', '新鮮烘焙', '用心製作', '建議預訂'],
     footerSmall: ['細心挑選', '小批量製作', '為社群而做', '少浪費，更用心'],
@@ -948,7 +948,7 @@ export default function App() {
             </article>
           ))}
         </div>
-        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · brioche pineapple bun · nitro milk tea · preorder bakery pickup · customer reposts · Instagram story highlights</p>
+        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · customer reposts · 客人回圖 · Instagram story highlights · tagged photos · nitro milk tea</p>
       </section>
 
       <footer className="v2-footer">
