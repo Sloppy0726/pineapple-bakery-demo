@@ -50,13 +50,31 @@ const menuProductImages = [
   'reference-product-3.jpg'
 ];
 
-const galleryImages = [
-  'official-brioche-pineapple-buns.jpg',
-  'social-reel-milk-tea.jpg',
-  'food-reel-pineapple-bun.jpg',
-  'social-reel-bun-closeup.jpg',
-  'official-brioche-pineapple-buns.jpg',
-  'food-reel-pineapple-bun.jpg'
+const socialProofCards = [
+  {
+    title: 'Customer bake photos',
+    zh: '客人回圖',
+    text: 'A place to feature real customer reposts, tagged photos, and Instagram highlight moments after approval.',
+    imageName: 'food-reel-pineapple-bun.jpg'
+  },
+  {
+    title: 'Best Bakery recognition',
+    zh: 'Best Bakery 2026',
+    text: 'Highlight award or media screenshots as proof points, with source links and approved wording.',
+    imageName: 'reference-award-full.jpg'
+  },
+  {
+    title: 'Fresh pineapple bun drops',
+    zh: '菠蘿包出爐動態',
+    text: 'Turn daily bake updates into searchable context for pineapple buns, preorder, pickup, and walk-in availability.',
+    imageName: 'official-brioche-pineapple-buns.jpg'
+  },
+  {
+    title: 'Nitro milk tea pairings',
+    zh: '氮氣奶茶配搭',
+    text: 'Show drink pairing content so searches around Hong Kong milk tea and pineapple buns connect to the shop.',
+    imageName: 'social-reel-milk-tea.jpg'
+  }
 ];
 
 const menuPlaceholders = [
@@ -189,9 +207,9 @@ const copy = {
       body: 'Pineapple Bakery 鳳梨餅家 started with a simple love for Hong Kong’s classic flavours. We believe in honest ingredients, artisan baking, and keeping traditions alive—one bun at a time. From our brioche pineapple buns to seasonal creations, everything is baked fresh, with heart.',
       cta: 'About us'
     },
-    galleryTitle: 'Fresh from our oven',
-    gallerySub: 'Follow us @pineapplebakeryhk',
-    instagram: 'View more on Instagram',
+    galleryTitle: 'Instagram highlights & customer proof',
+    gallerySub: 'Customer reposts, Best Bakery moments, fresh bun drops, and social proof from @pineapplebakeryhk.',
+    instagram: 'See Instagram highlights',
     footer: ['Quality ingredients', 'Baked fresh', 'Made with heart', 'Preorder preferred'],
     footerSmall: ['Chosen with care', 'In small batches', 'For our community', 'Less waste, more care'],
     emailTitle: 'Stay in the loop',
@@ -244,9 +262,9 @@ const copy = {
       body: 'Pineapple Bakery 鳳梨餅家由一份對香港經典味道的喜愛開始。相信好材料、手作烘焙，以及將傳統一個包一個包延續下去。由 brioche 菠蘿包到季節限定創作，每一款都新鮮出爐，用心製作。',
       cta: '關於我們'
     },
-    galleryTitle: '新鮮出爐',
-    gallerySub: '追蹤 @pineapplebakeryhk',
-    instagram: '查看更多 Instagram',
+    galleryTitle: 'Instagram 精選與客人回圖',
+    gallerySub: '整合客人回圖、Best Bakery、出爐動態及 @pineapplebakeryhk 社交證明。',
+    instagram: '查看 Instagram 精選',
     footer: ['優質材料', '新鮮烘焙', '用心製作', '建議預訂'],
     footerSmall: ['細心挑選', '小批量製作', '為社群而做', '少浪費，更用心'],
     emailTitle: '接收最新消息',
@@ -373,9 +391,9 @@ export default function App() {
       scrollTrigger: { start: 'top 72%' }
     });
 
-    revealSection('.v2-gallery', '.v2-gallery__head > *, .v2-gallery__grid img', {
+    revealSection('.v2-gallery', '.v2-gallery__head > *, .v2-proof-card, .v2-seo-note', {
       y: 30,
-      stagger: 0.045
+      stagger: 0.055
     });
 
     revealSection('.v2-menu-catalog', '.v2-menu-catalog__head > *, .v2-menu-card', {
@@ -900,9 +918,19 @@ export default function App() {
           <div><h2>{t.galleryTitle}</h2><p>{t.gallerySub}</p></div>
           <a className="v2-button v2-button--outline" href={instagramUrl} target="_blank" rel="noreferrer"><Camera size={17} />{t.instagram}</a>
         </div>
-        <div className="v2-gallery__grid">
-          {galleryImages.map((name, index) => <img key={`${name}-${index}`} src={image(name)} alt="Public Instagram-style bakery thumbnail — draft use only" />)}
+        <div className="v2-proof-grid">
+          {socialProofCards.map((card) => (
+            <article className="v2-proof-card" key={card.title}>
+              <img src={image(card.imageName)} alt={`${card.title} Instagram highlight placeholder`} />
+              <div>
+                <span>{card.zh}</span>
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </div>
+            </article>
+          ))}
         </div>
+        <p className="v2-seo-note">Pineapple Bakery 鳳梨餅家 · Sheung Wan bakery · Hong Kong pineapple bun · brioche pineapple bun · nitro milk tea · preorder bakery pickup</p>
       </section>
 
       <footer className="v2-footer">

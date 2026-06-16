@@ -29,12 +29,18 @@ const viewports = [
       await page.getByText(route.marker, { exact: false }).first().waitFor({ timeout: 5000 });
 
       const result = await page.evaluate(() => {
+        const jsonLd = JSON.parse(document.querySelector('script[type="application/ld+json"]')?.textContent || '{}');
+        const description = document.querySelector('meta[name="description"]')?.content || '';
         const navLinks = [...document.querySelectorAll('.v2-nav__links a')].filter((a) => getComputedStyle(a).display !== 'none').map((a) => a.textContent.trim());
         const linkBox = document.querySelector('.v2-nav__links')?.getBoundingClientRect();
         const actionsBox = document.querySelector('.v2-nav__actions')?.getBoundingClientRect();
         return {
           title: document.title,
           siteVersion: document.body.dataset.siteVersion,
+          metaDescriptionHasKeywords: /pineapple buns|菠蘿包|nitro milk tea|Sheung Wan bakery/i.test(description),
+          jsonLdType: jsonLd['@type'],
+          proofCards: document.querySelectorAll('.v2-proof-card').length,
+          oldPhotoStripImages: document.querySelectorAll('.v2-gallery__grid img').length,
           topOrderButtons: document.querySelectorAll('.v2-order').length,
           topOrderBagIcons: [...document.querySelectorAll('.v2-nav__icon')].filter((a) => a.getAttribute('aria-label')?.includes('bag')).length,
           navLinks,
@@ -52,7 +58,7 @@ const viewports = [
   await browser.close();
   console.log(JSON.stringify(results, null, 2));
 
-  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current');
+  const failures = results.filter((item) => item.errors.length || item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || (item.route === '/' && item.proofCards < 4) || item.oldPhotoStripImages !== 0);
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));
     process.exit(1);
