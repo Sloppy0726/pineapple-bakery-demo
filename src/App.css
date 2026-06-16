@@ -575,6 +575,12 @@ body[data-site-version='current'] {
     repeating-linear-gradient(90deg, rgba(42,29,20,.035) 0 1px, transparent 1px 10px);
   border-bottom: 1px solid var(--hairline);
 }
+.v2-menu-hero--menu {
+  background:
+    linear-gradient(90deg, rgba(255,250,241,.98) 0 32%, rgba(255,250,241,.87) 44%, rgba(255,250,241,.36) 64%, rgba(255,250,241,.08) 100%),
+    linear-gradient(180deg, rgba(42,29,20,.06), rgba(255,250,241,.14)),
+    url('/pineapple-bakery-demo/social/menu-background-matcha-buns.jpg') right center / cover no-repeat;
+}
 .v2-menu-hero h1 {
   max-width: 980px;
   margin: 0 0 24px;

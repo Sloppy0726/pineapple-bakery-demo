@@ -617,7 +617,7 @@ export default function App() {
           </div>
         </nav>
 
-        <section className="v2-menu-hero">
+        <section className="v2-menu-hero v2-menu-hero--menu">
           <p className="v2-kicker">{pageCopy.menu.kicker}</p>
           <h1>{pageCopy.menu.title}</h1>
           <p>{pageCopy.menu.text}</p>
