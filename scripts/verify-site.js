@@ -62,7 +62,8 @@ const viewports = [
           mobileNavSameRow: !linkBox || !actionsBox ? true : Math.abs(linkBox.y - actionsBox.y) < 12,
           horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
           legacyV1CodePresent: Boolean(document.querySelector('.hero, .social-float, .language-switch')),
-          menuHeroUsesUploadedBackground: getComputedStyle(document.querySelector('.v2-menu-hero--menu') || document.body).backgroundImage.includes('menu-background-matcha-buns.jpg')
+          menuHeroUsesUploadedBackground: getComputedStyle(document.querySelector('.v2-menu-hero--menu') || document.body).backgroundImage.includes('menu-background-matcha-buns.jpg'),
+          scheduleHeroUsesUploadedBackground: getComputedStyle(document.querySelector('.v2-schedule-hero') || document.body).backgroundImage.includes('schedule-background-pickup.png')
         };
       });
 
@@ -137,7 +138,7 @@ const viewports = [
       ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.navFontSize < 11 || item.navLetterSpacing > 0.25 || item.navColumnGap < 10 || !item.navBox || !item.actionsBox || item.navBox.right > item.actionsBox.left - 6 || item.horizontalOverflow || item.staleCombinedMilkTea || item.staleShortTitle)
       : item.route?.endsWith('/?lang=zh')
         ? (item.title !== item.expectedTitle || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.hasEnglishFaqTitle || item.hasEnglishMenuTitle || item.hasEnglishScheduleTitle || (item.route === 'faq/?lang=zh' && (!item.faqQuestions?.includes('如何落單？') || !item.faqQuestions?.includes('可以 walk-in 嗎？'))))
-        : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || (item.route === 'menu/' && !item.menuHeroUsesUploadedBackground) || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
+        : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.legacyV1CodePresent || (item.route === 'menu/' && !item.menuHeroUsesUploadedBackground) || (item.route === 'schedule/' && !item.scheduleHeroUsesUploadedBackground) || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
   ));
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));

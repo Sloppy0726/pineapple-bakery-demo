@@ -804,6 +804,12 @@ body[data-site-version='current'] {
     linear-gradient(115deg, rgba(255,250,241,.98), rgba(247,237,220,.78)),
     repeating-linear-gradient(0deg, rgba(42,29,20,.032) 0 1px, transparent 1px 12px);
 }
+.v2-schedule-hero {
+  background:
+    linear-gradient(90deg, rgba(255,250,241,.99) 0 34%, rgba(255,250,241,.88) 46%, rgba(255,250,241,.35) 68%, rgba(255,250,241,.1) 100%),
+    linear-gradient(180deg, rgba(42,29,20,.08), rgba(255,250,241,.12)),
+    url('/pineapple-bakery-demo/social/schedule-background-pickup.png') right center / cover no-repeat;
+}
 .v2-about-story {
   border-top: 1px solid rgba(42, 29, 20, .08);
 }
