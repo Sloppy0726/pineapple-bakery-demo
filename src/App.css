@@ -483,7 +483,7 @@ body[data-site-version='current'] {
   display: grid;
   place-items: center;
   min-height: 0;
-  background: url('/pineapple-bakery-demo/social/reference-award-full.jpg') center / cover;
+  background: url('/pineapple-bakery-demo/social/bakery-award-showcase.jpg') center / cover;
 }
 .v2-award-badge { display: none; }
 .v2-award-badge span { font-weight: 900; font-size: .8rem; }

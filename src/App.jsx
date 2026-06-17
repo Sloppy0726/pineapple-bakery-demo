@@ -28,26 +28,26 @@ const storageKey = 'pineapple-bakery-language';
 const image = (name) => `${assetBase}social/${name}`;
 
 const productImages = [
-  'reference-product-1.jpg',
-  'reference-product-2.jpg',
-  'reference-product-3.jpg',
-  'reference-product-4.jpg',
-  'reference-product-5.jpg'
+  'signature-pineapple-bun.jpg',
+  'egg-tart-display.jpg',
+  'seasonal-bun-display.jpg',
+  'bbq-pork-bun-display.jpg',
+  'matcha-pineapple-bun.jpg'
 ];
 
 const menuProductImages = [
-  'reference-product-1.jpg',
+  'signature-pineapple-bun.jpg',
   'food-reel-pineapple-bun.jpg',
-  'reference-product-5.jpg',
-  'reference-product-4.jpg',
-  'reference-product-2.jpg',
+  'matcha-pineapple-bun.jpg',
+  'bbq-pork-bun-display.jpg',
+  'egg-tart-display.jpg',
   'social-reel-milk-tea.jpg',
-  'reference-product-3.jpg',
-  'reference-product-2.jpg',
+  'seasonal-bun-display.jpg',
+  'egg-tart-display.jpg',
   'social-reel-bun-closeup.jpg',
   'official-brioche-pineapple-buns.jpg',
-  'reference-product-1.jpg',
-  'reference-product-3.jpg'
+  'signature-pineapple-bun.jpg',
+  'seasonal-bun-display.jpg'
 ];
 
 const storyShowcase = [
@@ -73,7 +73,7 @@ const storyShowcase = [
     handle: '@pineapplebakeryhk',
     title: 'Bakery reaction',
     text: 'A story-style customer proof card that shows social response instead of another static gallery image.',
-    imageName: 'reference-product-1.jpg'
+    imageName: 'signature-pineapple-bun.jpg'
   },
   {
     label: 'Customer photo',
@@ -81,7 +81,7 @@ const storyShowcase = [
     handle: '@tagged',
     title: 'Real repost showcase',
     text: 'Drop in approved repost screenshots here to build credibility and searchable customer-proof content.',
-    imageName: 'reference-product-2.jpg'
+    imageName: 'egg-tart-display.jpg'
   }
 ];
 
@@ -858,7 +858,7 @@ export default function App() {
             <p>{t.story.body}</p>
             <a href={mapsUrl} target="_blank" rel="noreferrer">{pageCopy.about.map}<ArrowRight size={15} /></a>
           </article>
-          <img className="v2-shop-photo" src={image('reference-shopfront-full.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
+          <img className="v2-shop-photo" src={image('shopfront-display.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
         </section>
 
         <footer className="v2-footer">
@@ -1048,7 +1048,7 @@ export default function App() {
           <p>{t.story.body}</p>
           <a href={aboutUrl}>{t.story.cta}<ArrowRight size={15} /></a>
         </article>
-        <img className="v2-shop-photo" src={image('reference-shopfront-full.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
+        <img className="v2-shop-photo" src={image('shopfront-display.jpg')} alt="Reference street photo of Pineapple Bakery shopfront" />
       </section>
 
       <section className="v2-gallery v2-reveal" id="v2-faq">
