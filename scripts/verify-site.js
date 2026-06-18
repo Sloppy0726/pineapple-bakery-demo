@@ -79,7 +79,10 @@ const viewports = [
             return img ? { width: img.naturalWidth, height: img.naturalHeight } : null;
           })(),
           aboutHeroUsesUploadedBackground: getComputedStyle(document.querySelector('.v2-about-hero') || document.body).backgroundImage.includes('about-background-packaging.png'),
-          faqHeroUsesUploadedBackground: getComputedStyle(document.querySelector('.v2-faq-hero') || document.body).backgroundImage.includes('faq-background-any-questions.jpg')
+          faqHeroUsesUploadedBackground: getComputedStyle(document.querySelector('.v2-faq-hero') || document.body).backgroundImage.includes('faq-background-any-questions.jpg'),
+          legalPageType: document.querySelector('.v2-legal-content')?.dataset.legalPage || '',
+          legalSectionHeadings: [...document.querySelectorAll('.v2-legal-section-card h3')].map((el) => el.textContent.trim()),
+          legalIntroText: document.querySelector('.v2-legal-intro')?.textContent || ''
         };
       });
 
@@ -149,12 +152,22 @@ const viewports = [
   await browser.close();
   console.log(JSON.stringify(results, null, 2));
 
+  const hasLegalFailure = (item) => {
+    if (item.route === 'privacy-policy/') {
+      return item.legalPageType !== 'privacy-policy' || item.legalSectionHeadings.length < 4 || !item.legalSectionHeadings.includes('Information we may collect') || item.legalSectionHeadings.includes('Website use') || !item.legalIntroText.includes('separate Privacy Policy page');
+    }
+    if (item.route === 'terms-and-conditions/') {
+      return item.legalPageType !== 'terms-and-conditions' || item.legalSectionHeadings.length < 4 || !item.legalSectionHeadings.includes('Website use') || item.legalSectionHeadings.includes('Information we may collect') || !item.legalIntroText.includes('separate Terms and Conditions page');
+    }
+    return false;
+  };
+
   const failures = results.filter((item) => item.errors.length || (
     item.route === '/?lang=zh'
       ? (item.kicker !== '香港招牌' || item.title !== '香港菠蘿包 & 氮氣奶茶' || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.navFontSize < 11 || item.navLetterSpacing > 0.25 || item.navColumnGap < 10 || !item.navBox || !item.actionsBox || item.navBox.right > item.actionsBox.left - 6 || item.horizontalOverflow || item.staleCombinedMilkTea || item.staleShortTitle)
       : item.route?.endsWith('/?lang=zh')
         ? (item.title !== item.expectedTitle || !item.navLinks.includes('關於') || !item.navLinks.includes('FAQ') || item.hasEnglishFaqTitle || item.hasEnglishMenuTitle || item.hasEnglishScheduleTitle || (item.route === 'faq/?lang=zh' && (!item.faqQuestions?.includes('如何落單？') || !item.faqQuestions?.includes('可以 walk-in 嗎？'))))
-        : (item.horizontalOverflow || item.topOrderButtons || item.topOrderBagIcons || item.floatingOrderButtons || item.legacyV1CodePresent || !item.footerRightsText.includes('Reserved') || !item.footerLegalLinks?.some((link) => link.text === 'Privacy Policy' && link.href?.includes('/privacy-policy/')) || !item.footerLegalLinks?.some((link) => link.text === 'Terms and Conditions' && link.href?.includes('/terms-and-conditions/')) || (item.route !== '/' && (item.pageHeroContentClipped || item.pageHeroHeight < 700 || item.pageHeroHeight > 740)) || (item.route === 'menu/' && !item.menuHeroUsesUploadedBackground) || (item.route === 'schedule/' && (!item.scheduleHeroUsesUploadedBackground || !item.scheduleDailyMenuPhotoPresent || !item.scheduleDailyMenuPhotoNaturalSize || item.scheduleDailyMenuPhotoNaturalSize.width < 100)) || (item.route === 'about/' && !item.aboutHeroUsesUploadedBackground) || (item.route === 'faq/' && !item.faqHeroUsesUploadedBackground) || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
+        : (item.horizontalOverflow || hasLegalFailure(item) || item.topOrderButtons || item.topOrderBagIcons || item.floatingOrderButtons || item.legacyV1CodePresent || !item.footerRightsText.includes('Reserved') || !item.footerLegalLinks?.some((link) => link.text === 'Privacy Policy' && link.href?.includes('/privacy-policy/')) || !item.footerLegalLinks?.some((link) => link.text === 'Terms and Conditions' && link.href?.includes('/terms-and-conditions/')) || (item.route !== '/' && (item.pageHeroContentClipped || item.pageHeroHeight < 700 || item.pageHeroHeight > 740)) || (item.route === 'menu/' && !item.menuHeroUsesUploadedBackground) || (item.route === 'schedule/' && (!item.scheduleHeroUsesUploadedBackground || !item.scheduleDailyMenuPhotoPresent || !item.scheduleDailyMenuPhotoNaturalSize || item.scheduleDailyMenuPhotoNaturalSize.width < 100)) || (item.route === 'about/' && !item.aboutHeroUsesUploadedBackground) || (item.route === 'faq/' && !item.faqHeroUsesUploadedBackground) || item.siteVersion !== 'current' || !item.metaDescriptionHasKeywords || item.jsonLdType !== 'Bakery' || item.navFontSize < (item.viewport === 'desktop' ? 13 : 10) || !item.navLinks.includes('About') || !item.navLinks.includes('FAQ') || (item.pageHeroTitleStyle && (item.pageHeroTitleStyle.letterSpacing < -3 || item.pageHeroTitleStyle.wordSpacing < 2 || item.pageHeroTitleStyle.lineHeight / item.pageHeroTitleStyle.fontSize < 0.98)) || (item.route === '/' && item.storyCards < 4) || (item.route === '/' && item.galleryText.includes('best bakery recognition')) || (item.route === '/' && item.galleryText.includes('schedule') && !item.galleryText.includes('walk-in schedule')) || item.oldPhotoStripImages !== 0)
   ));
   if (failures.length) {
     console.error('Verification failures:', JSON.stringify(failures, null, 2));

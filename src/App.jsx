@@ -652,10 +652,22 @@ export default function App() {
       terms: 'Terms and Conditions',
       privacyTitle: 'Privacy Policy',
       privacyKicker: 'Legal placeholder',
-      privacyText: 'Placeholder privacy policy text. Replace this page later with the final business privacy policy, data collection details, cookie wording, and contact information.',
+      privacyText: 'This separate Privacy Policy page explains what information the demo website may collect, how customer enquiries are handled, and what should be finalized before a real public launch.',
+      privacySections: [
+        { heading: 'Information we may collect', body: 'This demo site does not process payments or customer accounts. If a visitor sends an email, Instagram DM, or preorder enquiry, the bakery may receive the contact details and message content the visitor chooses to provide.' },
+        { heading: 'How information is used', body: 'Enquiry details should only be used to reply to bakery questions, manage preorder or pickup communication, and improve the website content after customer approval.' },
+        { heading: 'Cookies, analytics, and local storage', body: 'The current demo only stores the selected language preference in the visitor’s browser. Analytics, advertising pixels, newsletter tools, and cookie banners should be added to this policy if they are enabled later.' },
+        { heading: 'Before real launch', body: 'Replace this demo wording with the owner’s final business privacy policy, contact email, retention rules, and any Hong Kong legal requirements before presenting the site as official.' }
+      ],
       termsTitle: 'Terms and Conditions',
       termsKicker: 'Legal placeholder',
-      termsText: 'Placeholder terms and conditions text. Replace this page later with the final ordering, payment, pickup, refund, cancellation, and website-use terms.'
+      termsText: 'This separate Terms and Conditions page sets out placeholder website, preorder, pickup, cancellation, and content-use terms for the bakery demo.',
+      termsSections: [
+        { heading: 'Website use', body: 'This website is a demo and should not be treated as an official offer, menu, price list, or legal promise until the bakery owner approves the final content.' },
+        { heading: 'Orders and availability', body: 'Product availability, preorder cut-off times, pickup windows, prices, and batch sizes must be confirmed by the bakery before customers rely on them.' },
+        { heading: 'Payments, refunds, and cancellations', body: 'Payment methods, refund rules, cancellation timing, and no-show policies should be added here after the bakery confirms its real operating process.' },
+        { heading: 'Images and content', body: 'Photos, customer reposts, logos, and social screenshots should only be used with the correct permissions. Replace all placeholder terms with approved wording before launch.' }
+      ]
     },
     zh: {
       rights: '© 2026 Pineapple Bakery 鳳梨餅家。版權所有。',
@@ -663,17 +675,29 @@ export default function App() {
       terms: 'Terms and Conditions',
       privacyTitle: 'Privacy Policy',
       privacyKicker: '法律條款示範',
-      privacyText: '私隱政策示範文字。之後可在此頁加入正式的私隱政策、資料收集說明、cookie 條款及聯絡方法。',
+      privacyText: '這個獨立 Privacy Policy 頁面說明示範網站可能收集的資料、客人查詢如何處理，以及正式公開前需要補上的內容。',
+      privacySections: [
+        { heading: '可能收集的資料', body: '目前示範網站不處理付款或會員帳戶。如客人透過 email、Instagram DM 或預訂查詢聯絡店舖，店方可能會收到客人自行提供的聯絡資料及訊息內容。' },
+        { heading: '資料用途', body: '查詢資料應只用作回覆店舖問題、安排預訂或自取溝通，以及在客戶確認後改善網站內容。' },
+        { heading: 'Cookies、分析及本機儲存', body: '目前示範網站只會在瀏覽器儲存語言偏好。如日後加入分析工具、廣告像素、newsletter 工具或 cookie banner，應同步更新此政策。' },
+        { heading: '正式推出前', body: '正式公開前，請以店主確認的私隱政策、聯絡 email、資料保留安排及香港適用要求替換此示範文字。' }
+      ],
       termsTitle: 'Terms and Conditions',
       termsKicker: '法律條款示範',
-      termsText: '條款及細則示範文字。之後可在此頁加入正式的落單、付款、自取、退款、取消及網站使用條款。'
+      termsText: '這個獨立 Terms and Conditions 頁面放置網站使用、預訂、自取、取消及內容使用條款的示範文字。',
+      termsSections: [
+        { heading: '網站使用', body: '此網站為示範用途；在店主確認最終內容前，不應視為官方餐單、價錢、供應承諾或法律聲明。' },
+        { heading: '落單及供應', body: '產品供應、預訂截止時間、自取時段、價錢及每日批量，必須由店舖確認後才可讓客人依賴。' },
+        { heading: '付款、退款及取消', body: '付款方式、退款安排、取消時限及 no-show 政策，應待店舖確認實際營運流程後再加入。' },
+        { heading: '圖片及內容', body: '相片、客人回圖、logo 及社交媒體截圖必須有合適授權才使用。正式推出前請以核准文字替換所有 placeholder。' }
+      ]
     }
   }[language];
 
   if (isPrivacyPage || isTermsPage) {
     const legalPage = isPrivacyPage
-      ? { title: legalCopy.privacyTitle, kicker: legalCopy.privacyKicker, text: legalCopy.privacyText }
-      : { title: legalCopy.termsTitle, kicker: legalCopy.termsKicker, text: legalCopy.termsText };
+      ? { title: legalCopy.privacyTitle, kicker: legalCopy.privacyKicker, text: legalCopy.privacyText, sections: legalCopy.privacySections, pageType: 'privacy-policy' }
+      : { title: legalCopy.termsTitle, kicker: legalCopy.termsKicker, text: legalCopy.termsText, sections: legalCopy.termsSections, pageType: 'terms-and-conditions' };
     return (
       <main className={siteClass('v2-menu-page', 'v2-legal-page')} ref={rootRef}>
         <nav className="v2-nav" aria-label="Version 2 navigation">
@@ -704,12 +728,20 @@ export default function App() {
           <p>{legalPage.text}</p>
         </section>
 
-        <section className="v2-legal-content" aria-label={legalPage.title}>
-          <article>
+        <section className="v2-legal-content" aria-label={legalPage.title} data-legal-page={legalPage.pageType}>
+          <article className="v2-legal-intro">
             <h2>{legalPage.title}</h2>
             <p>{legalPage.text}</p>
-            <p>{language === 'zh' ? '此頁暫時只放簡單 placeholder，正式文字可稍後由店主補上。' : 'This page is intentionally simple placeholder copy for now. Final legal wording can be added later by the owner.'}</p>
+            <p>{language === 'zh' ? '此頁是獨立法律頁面，與另一個法律頁分開管理；正式文字可稍後由店主補上。' : 'This is a standalone legal page, managed separately from the other legal page. Final legal wording can be added later by the owner.'}</p>
           </article>
+          <div className="v2-legal-sections">
+            {legalPage.sections.map((section) => (
+              <article key={section.heading} className="v2-legal-section-card">
+                <h3>{section.heading}</h3>
+                <p>{section.body}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <footer className="v2-footer">

@@ -1223,12 +1223,26 @@ body[data-site-version='current'] {
   background: #fffaf1;
 }
 .v2-legal-content article {
-  max-width: 920px;
-  padding: clamp(24px, 4vw, 48px);
+  padding: clamp(22px, 3vw, 42px);
   border: 1px solid rgba(42,29,20,.11);
-  border-radius: clamp(24px, 3vw, 38px);
+  border-radius: clamp(22px, 3vw, 34px);
   background: rgba(255,255,252,.82);
   box-shadow: 0 18px 44px rgba(88,56,23,.1);
+}
+.v2-legal-intro {
+  max-width: 980px;
+  margin-bottom: clamp(18px, 3vw, 30px);
+}
+.v2-legal-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+  max-width: 1180px;
+}
+.v2-legal-section-card h3 {
+  margin: 0 0 10px;
+  font: 950 clamp(1.2rem, 2.1vw, 1.9rem) / 1 'Fraunces', 'Noto Sans HK', serif;
+  letter-spacing: -.025em;
 }
 .v2-legal-content h2 {
   margin: 0 0 14px;
@@ -1264,6 +1278,7 @@ body[data-site-version='current'] {
   .v2-schedule-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .v2-schedule-notes { grid-template-columns: 1fr; }
   .v2-story-showcase { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v2-legal-sections { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {
