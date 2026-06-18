@@ -1300,6 +1300,10 @@ body[data-site-version='current'] {
   .v2-preorder {
     padding: 30px 18px;
   }
+  .v2-menu-panel { padding-bottom: 46px; }
+  .v2-preorder { padding-bottom: 54px; }
+  .v2-menu-panel .v2-button--outline { margin-bottom: 8px; }
+  .v2-preorder .v2-button--primary { margin-bottom: 8px; }
   .v2-section-title h2,
   .v2-preorder h2,
   .v2-gallery h2 {
@@ -1337,7 +1341,7 @@ body[data-site-version='current'] {
   .v2-story-showcase {
     display: flex;
     gap: 12px;
-    margin-inline: -24px;
+    margin: 46px -24px 0;
     padding: 0 24px 10px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
