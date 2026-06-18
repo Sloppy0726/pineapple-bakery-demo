@@ -524,12 +524,16 @@ export default function App() {
   const scheduleUrl = `${assetBase}schedule/`;
   const aboutUrl = `${assetBase}about/`;
   const faqUrl = `${assetBase}faq/`;
+  const privacyUrl = `${assetBase}privacy-policy/`;
+  const termsUrl = `${assetBase}terms-and-conditions/`;
   const homeAnchor = (anchor) => `${assetBase}${anchor}`;
   const currentPath = window.location.pathname.replace(/\/+$/, '');
   const isMenuPage = currentPath.endsWith('/menu');
   const isSchedulePage = currentPath.endsWith('/schedule');
   const isAboutPage = currentPath.endsWith('/about');
   const isFaqPage = currentPath.endsWith('/faq');
+  const isPrivacyPage = currentPath.endsWith('/privacy-policy');
+  const isTermsPage = currentPath.endsWith('/terms-and-conditions');
   const currentPage = isMenuPage ? 'menu' : isSchedulePage ? 'schedule' : isAboutPage ? 'about' : isFaqPage ? 'faq' : 'home';
   const navState = (page) => page === currentPage ? { className: 'is-active', 'aria-current': 'page' } : {};
   const siteClass = (...classes) => ['v2-site', language === 'zh' ? 'v2-site--zh' : '', ...classes].filter(Boolean).join(' ');
@@ -601,6 +605,93 @@ export default function App() {
       }
     }
   }[language];
+
+  const legalCopy = {
+    en: {
+      rights: '© 2026 Pineapple Bakery. All Rights Reserved.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms and Conditions',
+      privacyTitle: 'Privacy Policy',
+      privacyKicker: 'Legal placeholder',
+      privacyText: 'Placeholder privacy policy text. Replace this page later with the final business privacy policy, data collection details, cookie wording, and contact information.',
+      termsTitle: 'Terms and Conditions',
+      termsKicker: 'Legal placeholder',
+      termsText: 'Placeholder terms and conditions text. Replace this page later with the final ordering, payment, pickup, refund, cancellation, and website-use terms.'
+    },
+    zh: {
+      rights: '© 2026 Pineapple Bakery 鳳梨餅家。版權所有。',
+      privacy: 'Privacy Policy',
+      terms: 'Terms and Conditions',
+      privacyTitle: 'Privacy Policy',
+      privacyKicker: '法律條款示範',
+      privacyText: '私隱政策示範文字。之後可在此頁加入正式的私隱政策、資料收集說明、cookie 條款及聯絡方法。',
+      termsTitle: 'Terms and Conditions',
+      termsKicker: '法律條款示範',
+      termsText: '條款及細則示範文字。之後可在此頁加入正式的落單、付款、自取、退款、取消及網站使用條款。'
+    }
+  }[language];
+
+  if (isPrivacyPage || isTermsPage) {
+    const legalPage = isPrivacyPage
+      ? { title: legalCopy.privacyTitle, kicker: legalCopy.privacyKicker, text: legalCopy.privacyText }
+      : { title: legalCopy.termsTitle, kicker: legalCopy.termsKicker, text: legalCopy.termsText };
+    return (
+      <main className={siteClass('v2-menu-page', 'v2-legal-page')} ref={rootRef}>
+        <nav className="v2-nav" aria-label="Version 2 navigation">
+          <a className="v2-brand" href={homeUrl} aria-label="Pineapple Bakery home">
+            <DoodleLogo />
+            <span><strong>Pineapple Bakery</strong><small>鳳梨餅家</small></span>
+          </a>
+          <div className="v2-nav__links">
+            <a {...navState('home')} href={homeUrl}>{t.nav.home}</a>
+            <a {...navState('menu')} href={menuUrl}>{t.nav.menu}</a>
+            <a {...navState('schedule')} href={scheduleUrl}>{t.nav.schedule}</a>
+            <a {...navState('about')} href={aboutUrl}>{t.nav.about}</a>
+            <a {...navState('faq')} href={faqUrl}>{t.nav.faq}</a>
+          </div>
+          <div className="v2-nav__actions">
+            <a className="v2-nav__icon" href={instagramUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram"><HeaderInstagramIcon width="23" height="23" /></a>
+            <div className="v2-lang" aria-label={t.nav.language}>
+              {['en', 'zh'].map((item) => (
+                <button key={item} type="button" className={language === item ? 'active' : ''} aria-pressed={language === item} onClick={() => setLanguage(item)}>{item === 'en' ? 'EN' : '繁'}</button>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        <section className="v2-menu-hero v2-legal-hero">
+          <p className="v2-kicker">{legalPage.kicker}</p>
+          <h1>{legalPage.title}</h1>
+          <p>{legalPage.text}</p>
+        </section>
+
+        <section className="v2-legal-content" aria-label={legalPage.title}>
+          <article>
+            <h2>{legalPage.title}</h2>
+            <p>{legalPage.text}</p>
+            <p>{language === 'zh' ? '此頁暫時只放簡單 placeholder，正式文字可稍後由店主補上。' : 'This page is intentionally simple placeholder copy for now. Final legal wording can be added later by the owner.'}</p>
+          </article>
+        </section>
+
+        <footer className="v2-footer">
+          <div className="v2-footer__features">
+            {t.footer.map((item, index) => {
+              const Icon = [Wheat, DoodleLogo, Heart, Package][index];
+              return <span key={item}>{index === 1 ? <DoodleLogo /> : <Icon size={24} />}<strong>{item}</strong><small>{t.footerSmall[index]}</small></span>;
+            })}
+          </div>
+          <form className="v2-subscribe" onSubmit={(event) => event.preventDefault()}>
+            <h3>{t.emailTitle}</h3>
+            <p>{t.emailText}</p>
+            <label><span className="sr-only">{t.emailPlaceholder}</span><input type="email" placeholder={t.emailPlaceholder} /></label>
+            <button type="submit">{t.subscribe}</button>
+          </form>
+          <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+          <div className="v2-legal-row"><span>{legalCopy.rights}</span><a href={privacyUrl}>{legalCopy.privacy}</a><a href={termsUrl}>{legalCopy.terms}</a></div>
+        </footer>
+      </main>
+    );
+  }
 
   if (isMenuPage) {
     return (
@@ -714,6 +805,7 @@ export default function App() {
             <button type="submit">{t.subscribe}</button>
           </form>
           <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+          <div className="v2-legal-row"><span>{legalCopy.rights}</span><a href={privacyUrl}>{legalCopy.privacy}</a><a href={termsUrl}>{legalCopy.terms}</a></div>
         </footer>
 
         <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>
@@ -824,6 +916,7 @@ export default function App() {
             <button type="submit">{t.subscribe}</button>
           </form>
           <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+          <div className="v2-legal-row"><span>{legalCopy.rights}</span><a href={privacyUrl}>{legalCopy.privacy}</a><a href={termsUrl}>{legalCopy.terms}</a></div>
         </footer>
 
         <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>
@@ -901,6 +994,7 @@ export default function App() {
             <button type="submit">{t.subscribe}</button>
           </form>
           <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+          <div className="v2-legal-row"><span>{legalCopy.rights}</span><a href={privacyUrl}>{legalCopy.privacy}</a><a href={termsUrl}>{legalCopy.terms}</a></div>
         </footer>
 
         <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>
@@ -973,6 +1067,7 @@ export default function App() {
             <button type="submit">{t.subscribe}</button>
           </form>
           <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+          <div className="v2-legal-row"><span>{legalCopy.rights}</span><a href={privacyUrl}>{legalCopy.privacy}</a><a href={termsUrl}>{legalCopy.terms}</a></div>
         </footer>
 
         <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>
@@ -1118,6 +1213,7 @@ export default function App() {
           <button type="submit">{t.subscribe}</button>
         </form>
         <p className="v2-disclaimer"><Languages size={15} /> EN / 繁 · {t.disclaimer}</p>
+        <div className="v2-legal-row"><span>{legalCopy.rights}</span><a href={privacyUrl}>{legalCopy.privacy}</a><a href={termsUrl}>{legalCopy.terms}</a></div>
       </footer>
 
       <a className="v2-float" href={instagramDmUrl} target="_blank" rel="noreferrer" aria-label="Open Instagram DM order enquiry"><ShoppingBag size={19} /> {t.nav.order}</a>

@@ -1193,6 +1193,54 @@ body[data-site-version='current'] {
 .v2-subscribe input { width: 100%; min-height: 42px; border: 1px solid var(--line); border-radius: 999px; padding: 0 16px; background: #fffaf0; font: inherit; }
 .v2-subscribe button { min-height: 42px; border: 0; border-radius: 999px; padding: 0 22px; background: var(--ink); color: #fff7e8; font-weight: 900; text-transform: uppercase; font-size: .72rem; }
 .v2-disclaimer { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin: 10px 0 0; color: rgba(42,29,20,.7); font-size: .75rem; font-weight: 800; border-top: 1px solid var(--hairline); padding-top: 14px; }
+.v2-legal-row {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin-top: 2px;
+  color: rgba(42,29,20,.68);
+  font-size: .76rem;
+  font-weight: 850;
+}
+.v2-legal-row a {
+  color: #7c4d12;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.v2-legal-row a:hover,
+.v2-legal-row a:focus-visible { color: var(--ink); }
+.v2-legal-hero {
+  background:
+    linear-gradient(90deg, rgba(255,250,241,.96) 0%, rgba(255,250,241,.9) 46%, rgba(255,250,241,.55) 72%, rgba(255,250,241,.72) 100%),
+    radial-gradient(circle at 78% 28%, rgba(239,198,108,.34), transparent 24rem),
+    repeating-linear-gradient(90deg, rgba(42,29,20,.035) 0 1px, transparent 1px 10px),
+    #fffaf1;
+}
+.v2-legal-content {
+  padding: clamp(44px, 6vw, 86px) clamp(20px, 5vw, 76px);
+  background: #fffaf1;
+}
+.v2-legal-content article {
+  max-width: 920px;
+  padding: clamp(24px, 4vw, 48px);
+  border: 1px solid rgba(42,29,20,.11);
+  border-radius: clamp(24px, 3vw, 38px);
+  background: rgba(255,255,252,.82);
+  box-shadow: 0 18px 44px rgba(88,56,23,.1);
+}
+.v2-legal-content h2 {
+  margin: 0 0 14px;
+  font: 950 clamp(2rem, 4vw, 4rem) / .98 'Fraunces', 'Noto Sans HK', serif;
+  letter-spacing: -.04em;
+}
+.v2-legal-content p {
+  margin: 0 0 14px;
+  color: #4a3828;
+  font-weight: 850;
+  line-height: 1.6;
+}
 .v2-site .v2-float { position: fixed; right: clamp(12px, 2vw, 24px); bottom: max(12px, env(safe-area-inset-bottom)); z-index: 30; padding: 0 18px; min-height: 48px; }
 
 @media (prefers-reduced-motion: reduce) {
